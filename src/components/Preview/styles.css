@@ -1,0 +1,10 @@
+.preview-pane {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: scroll;
+  margin-left: 1rem; /* Add margin for separation */
+}
+
+.preview {
+  font-family: sans-serif;
+}
