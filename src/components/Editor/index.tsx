@@ -6,6 +6,7 @@ import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
 
 import "./styles.css"; // Import your CSS file
+import Toolbar from "../Toolbar";
 
 type EditorPropsType = {
     markdown: string;
@@ -14,6 +15,7 @@ type EditorPropsType = {
 
 const Editor: React.FC<EditorPropsType> = ({ markdown, onMarkdownChange }) => {
     const [editorValue, setEditorValue] = useState(markdown);
+    const editorRef = React.createRef<AceEditor>();
 
     const handleChange = (value: string) => {
         setEditorValue(value);
@@ -22,23 +24,32 @@ const Editor: React.FC<EditorPropsType> = ({ markdown, onMarkdownChange }) => {
 
     return (
         <div className="editor-sidebar">
+            <Toolbar editorRef={editorRef} />
             <AceEditor
+                ref={editorRef}
                 mode="markdown"
-                theme="github" // Adjust theme as desired
+                theme="github"
                 name="UNIQUE_ID_OF_DIV"
-                fontSize={13} // Optional font size adjustment
-                showPrintMargin={false} // Optional, hide print margin
+                fontSize={13}
+                showPrintMargin={false}
                 onChange={handleChange}
                 value={editorValue}
                 className="ace-editor"
                 editorProps={{
                     $blockScrolling: true,
-                    // Enable status bar with word and character count
                     statusBar: {
                         show: true,
                         values: [
-                            { key: "words", value: "Words: 0" }, // Updated dynamically
-                            { key: "chars", value: "Characters: 0" }, // Updated dynamically
+                            {
+                                key: "words",
+                                value: `Words: ${
+                                    editorValue.split(/\s+/).length
+                                }`,
+                            },
+                            {
+                                key: "chars",
+                                value: `Characters: ${editorValue.length}`,
+                            },
                         ],
                     },
                 }}
