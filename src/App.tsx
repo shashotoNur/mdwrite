@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 
 import Editor from "./components/Editor";
 import Preview from "./components/Preview";
@@ -8,8 +8,8 @@ import "./App.css";
 const App = () => {
     const [markdown, setMarkdown] = useState("");
 
-    const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setMarkdown(event.target.value);
+    const handleChange = (newMarkdown: string) => {
+        setMarkdown(newMarkdown);
     };
 
     return (
