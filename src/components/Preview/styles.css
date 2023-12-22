@@ -1,3 +1,9 @@
+pre {
+    background-color: #e5e5e57e;
+    padding: 0.75rem;
+    border-radius: 2px;
+}
+
 .preview-pane {
   padding: 20px;
   border-radius: 5px;

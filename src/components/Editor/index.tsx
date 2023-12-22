@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AceEditor from "react-ace";
-import { saveAs } from "file-saver"
+import { saveAs } from "file-saver";
 
 import "ace-builds/src-noconflict/mode-markdown";
 import "ace-builds/src-noconflict/theme-github";
@@ -24,16 +24,16 @@ const Editor: React.FC<EditorPropsType> = ({ markdown, onMarkdownChange }) => {
     };
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if(!event.target.files) return;
+        if (!event.target.files) return;
         const file = event.target.files[0];
 
         const reader = new FileReader();
         reader.onload = (e) => {
-            if(!e.target) return;
+            if (!e.target) return;
             const markdown = e.target.result;
-            if(typeof markdown === "string") {
+            if (typeof markdown === "string") {
                 onMarkdownChange(markdown);
-                setFilename((file.name).replace(".md", ""));
+                setFilename(file.name.replace(".md", ""));
             }
         };
         reader.readAsText(file);
@@ -45,7 +45,6 @@ const Editor: React.FC<EditorPropsType> = ({ markdown, onMarkdownChange }) => {
 
             <div className="file-input-group">
                 <label htmlFor="filename-input">
-                    Name:
                     <input
                         type="text"
                         id="filename-input"
@@ -58,11 +57,10 @@ const Editor: React.FC<EditorPropsType> = ({ markdown, onMarkdownChange }) => {
                     <input type="file" onChange={handleFileChange} />
                     Import
                 </label>
-                <button className="btn" onClick={handleExport}>
+                <label className="btn" onClick={handleExport}>
                     Export
-                </button>
+                </label>
             </div>
-
 
             <AceEditor
                 ref={editorRef}

@@ -7,9 +7,12 @@
   flex: 1; /* Ensure both nested components take up equal width */
 }
 
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+  .app-container {
+    flex-direction: column; /* Stack elements vertically */
+  }
 
-pre {
-    background-color: #e5e5e57e;
-    padding: 0.75rem;
-    border-radius: 2px;
+  .preview-toggle {
+    margin-top: 15px; /* Add spacing above the button */
+  }
 }

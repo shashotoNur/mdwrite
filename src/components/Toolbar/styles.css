@@ -36,8 +36,9 @@
 
 .insert-modal {
     display: flex;
+    overflow: hidden;
+    overflow-x: scroll;
     margin-top: 1%;
-    width: 100%;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -62,16 +63,7 @@
 }
 
 .insert-modal button {
-    margin-left: 1%;
-    margin: auto 0 auto 0;
-    height: 50%;
-    background-color: #448aff; /* Primary color */
-    color: #fff;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-}
-
-.insert-modal button:hover {
-    background-color: #357ae8; /* Darker primary color on hover */
+    margin-top: 2.5%;
+    max-height: 50%;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
 }
