@@ -19,11 +19,14 @@ const Toolbar = ({ editorRef }: ToolbarPropsType) => {
         if (editor) {
             const cursorPosition = editor.getCursorPosition();
             const selection = editor.getSelectedText();
-            const secondSymbol = symbol.replace("<", "</")
+            const secondSymbol = symbol.replace("<", "</");
 
             if (selection) {
                 const range = editor.getSelectionRange();
-                editor.session.replace(range, `${symbol}${selection}${secondSymbol}`);
+                editor.session.replace(
+                    range,
+                    `${symbol}${selection}${secondSymbol}`
+                );
             } else {
                 // If there is no selection, insert the symbol at the cursor position
                 const position = {
@@ -124,13 +127,40 @@ const Toolbar = ({ editorRef }: ToolbarPropsType) => {
     };
 
     return (
-        <div className="editor-sidebar">
-            <div className="toolbar">
-                <button onClick={() => insertDoubleSymbol("__")}>Bold</button>
-                <button onClick={() => insertDoubleSymbol("_")}>Italic</button>
-                <button onClick={() => insertDoubleSymbol("<sub>")}>Sub</button>
-                <button onClick={() => insertDoubleSymbol("<sup>")}>Super</button>
-                <select onChange={handleHeadingChange}>
+        <div className="toolbar">
+            {/* Group styling buttons */}
+            <div className="formatting-group">
+                <button
+                    className="toolbar-button"
+                    onClick={() => insertDoubleSymbol("__")}
+                >
+                    <b>B</b>
+                </button>
+                <button
+                    className="toolbar-button"
+                    onClick={() => insertDoubleSymbol("_")}
+                >
+                    <i>I</i>
+                </button>
+                <button
+                    className="toolbar-button"
+                    onClick={() => insertDoubleSymbol("<sub>")}
+                >
+                    Sub
+                </button>
+                <button
+                    className="toolbar-button"
+                    onClick={() => insertDoubleSymbol("<sup>")}
+                >
+                    Super
+                </button>
+
+                {/* Heading dropdown with default option */}
+                <select
+                    className="toolbar-select"
+                    defaultValue=""
+                    onChange={handleHeadingChange}
+                >
                     <option value="">Heading</option>
                     <option value="1">Heading 1</option>
                     <option value="2">Heading 2</option>
@@ -139,67 +169,104 @@ const Toolbar = ({ editorRef }: ToolbarPropsType) => {
                     <option value="5">Heading 5</option>
                     <option value="6">Heading 6</option>
                 </select>
-                <button onClick={() => insertSingleSymbol("- ")}>
+            </div>
+
+            {/* Group list and formatting buttons */}
+            <div className="list-formatting-group">
+                <button
+                    className="toolbar-button"
+                    onClick={() => insertSingleSymbol("- ")}
+                >
                     Unordered List
                 </button>
-                <button onClick={() => insertSingleSymbol("1. ")}>
+                <button
+                    className="toolbar-button"
+                    onClick={() => insertSingleSymbol("1. ")}
+                >
                     Ordered List
                 </button>
-                <button onClick={() => insertSingleSymbol("- [ ] ")}>
-                    List
+                <button
+                    className="toolbar-button"
+                    onClick={() => insertSingleSymbol("- [ ] ")}
+                >
+                    Checkbox
                 </button>
-                <button onClick={() => insertSingleSymbol("---\n")}>
+                <button
+                    className="toolbar-button"
+                    onClick={() => insertSingleSymbol("---\n")}
+                >
                     Rule
                 </button>
-                <button onClick={() => insertSingleSymbol("<br>")}>
+                <button
+                    className="toolbar-button"
+                    onClick={() => insertSingleSymbol("<br>")}
+                >
                     Break
                 </button>
-                <button onClick={() => insertSingleSymbol("> ")}>Quote</button>
-                <button onClick={() => handleInsert("link")}>
-                    Insert Link
+                <button
+                    className="toolbar-button"
+                    onClick={() => insertSingleSymbol("> ")}
+                >
+                    Quote
                 </button>
-                <button onClick={() => handleInsert("image")}>
-                    Insert Image
-                </button>
-                <button onClick={() => handleInsert("reference")}>
-                    Insert Reference
-                </button>
-                {showInsertModal && (
-                    <div className="insert-modal">
-                        <label>
-                            Text:
-                            <input
-                                type="text"
-                                value={insertText}
-                                onChange={(e) => setInsertText(e.target.value)}
-                            />
-                        </label>
-                        {insertType === "reference" && (
-                            <label>
-                                Reference:
-                                <input
-                                    type="text"
-                                    value={insertReference}
-                                    onChange={(e) =>
-                                        setInsertReference(e.target.value)
-                                    }
-                                />
-                            </label>
-                        )}
-                        <label>
-                            URL:
-                            <input
-                                type="text"
-                                value={insertUrl}
-                                onChange={(e) => setInsertUrl(e.target.value)}
-                            />
-                        </label>
-                        <button onClick={handleInsertModalSubmit}>
-                            Insert
-                        </button>
-                    </div>
-                )}
             </div>
+
+            {/* Group link, image, and reference buttons */}
+            <div className="insert-group">
+                <button
+                    className="toolbar-button"
+                    onClick={() => handleInsert("link")}
+                >
+                    Link
+                </button>
+                <button
+                    className="toolbar-button"
+                    onClick={() => handleInsert("image")}
+                >
+                    Image
+                </button>
+                <button
+                    className="toolbar-button"
+                    onClick={() => handleInsert("reference")}
+                >
+                    Reference
+                </button>
+            </div>
+
+            {/* Conditional modal with modern styling */}
+            {showInsertModal && (
+                <div className="insert-modal">
+                    <label>
+                        Text:
+                        <input
+                            type="text"
+                            value={insertText}
+                            onChange={(e) => setInsertText(e.target.value)}
+                        />
+                    </label>
+                    {insertType === "reference" && (
+                        <label>
+                            Reference:
+                            <input
+                                type="text"
+                                value={insertReference}
+                                onChange={(e) =>
+                                    setInsertReference(e.target.value)
+                                }
+                            />
+                        </label>
+                    )}
+                    <label>
+                        URL:
+                        <input
+                            type="text"
+                            value={insertUrl}
+                            onChange={(e) => setInsertUrl(e.target.value)}
+                        />
+                    </label>
+                    <button onClick={handleInsertModalSubmit}>Insert</button>
+                </div>
+            )}
         </div>
     );
 };

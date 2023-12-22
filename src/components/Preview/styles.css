@@ -1,11 +1,43 @@
 .preview-pane {
-  flex: 1;
-  padding: 1rem;
-  overflow-y: scroll;
-  margin-left: 1rem; /* Add margin for separation */
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.preview {
-  font-family: sans-serif;
-  height: 99%;
+.preview-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
 }
+
+.preview-info div {
+  font-size: 14px;
+  color: #999;
+}
+
+.preview-content {
+  overflow-y: scroll; /* Enable scrolling for longer content */
+  overflow-x: scroll;
+  max-height: 97%; /* Adjust this value based on your needs */
+}
+
+/* Styles for ReactMarkdown content (adjust as needed) */
+.preview-content h1,
+.preview-content h2,
+.preview-content h3,
+.preview-content h4,
+.preview-content h5,
+.preview-content h6 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.preview-content p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+/* ... other styles for ReactMarkdown content */

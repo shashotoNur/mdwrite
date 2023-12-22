@@ -42,16 +42,28 @@ const Editor: React.FC<EditorPropsType> = ({ markdown, onMarkdownChange }) => {
     return (
         <div className="editor-sidebar">
             <Toolbar editorRef={editorRef} />
-            <input type="file" onChange={handleFileChange} />
-            <label>
-                Name:
-                <input
-                    type="text"
-                    value={filename}
-                    onChange={(e) => setFilename(e.target.value)}
-                />
-            </label>
-            <button onClick={handleExport}>Export</button>
+
+            <div className="file-input-group">
+                <label htmlFor="filename-input">
+                    Name:
+                    <input
+                        type="text"
+                        id="filename-input"
+                        value={filename}
+                        onChange={(e) => setFilename(e.target.value)}
+                    />
+                </label>
+
+                <label className="btn">
+                    <input type="file" onChange={handleFileChange} />
+                    Import
+                </label>
+                <button className="btn" onClick={handleExport}>
+                    Export
+                </button>
+            </div>
+
+
             <AceEditor
                 ref={editorRef}
                 mode="markdown"

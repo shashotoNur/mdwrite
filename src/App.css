@@ -1,9 +1,12 @@
 .app-container {
-    margin: 0.5vw;
-    display: flex;
-    width: 95vw;
-    height: 97vh; /* Adjust as needed */
+  display: flex; /* Arrange elements horizontally */
+  max-height: 96vh; /* Fill the entire viewport height */
 }
+
+.app-container > * {
+  flex: 1; /* Ensure both nested components take up equal width */
+}
+
 
 pre {
     background-color: #e5e5e57e;

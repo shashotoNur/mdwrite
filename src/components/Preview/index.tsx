@@ -20,13 +20,27 @@ type PreviewPropsType = {
 const Preview = ({ markdown, counts }: PreviewPropsType) => {
     return (
         <div className="preview-pane">
-            <p>{counts.wordCount} words, {counts.charCount} characters</p>
-            <ReactMarkdown
-                rehypePlugins={[rehypeHighlight, rehypeRaw, rehypeStringify]}
-                remarkPlugins={[remarkParse, remarkGfm, remarkRehype, emoji]}
-            >
-                {markdown}
-            </ReactMarkdown>
+            <div className="preview-info">
+                <div className="word-count">{counts.wordCount} words</div>
+                <div className="char-count">{counts.charCount} characters</div>
+            </div>
+            <div className="preview-content">
+                <ReactMarkdown
+                    rehypePlugins={[
+                        rehypeHighlight,
+                        rehypeRaw,
+                        rehypeStringify,
+                    ]}
+                    remarkPlugins={[
+                        remarkParse,
+                        remarkGfm,
+                        remarkRehype,
+                        emoji,
+                    ]}
+                >
+                    {markdown}
+                </ReactMarkdown>
+            </div>
         </div>
     );
 };
