@@ -9,9 +9,18 @@ import emoji from "remark-emoji";
 
 import "./styles.css";
 
-const Preview = ({ markdown }: { markdown: string }) => {
+type PreviewPropsType = {
+    markdown: string;
+    counts: {
+        wordCount: number;
+        charCount: number;
+    };
+};
+
+const Preview = ({ markdown, counts }: PreviewPropsType) => {
     return (
         <div className="preview-pane">
+            <p>{counts.wordCount} words, {counts.charCount} characters</p>
             <ReactMarkdown
                 rehypePlugins={[rehypeHighlight, rehypeRaw, rehypeStringify]}
                 remarkPlugins={[remarkParse, remarkGfm, remarkRehype, emoji]}

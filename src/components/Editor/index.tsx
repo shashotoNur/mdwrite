@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AceEditor from "react-ace";
+import { saveAs } from "file-saver"
 
 import "ace-builds/src-noconflict/mode-markdown";
 import "ace-builds/src-noconflict/theme-github";
@@ -14,45 +15,53 @@ type EditorPropsType = {
 };
 
 const Editor: React.FC<EditorPropsType> = ({ markdown, onMarkdownChange }) => {
-    const [editorValue, setEditorValue] = useState(markdown);
     const editorRef = React.createRef<AceEditor>();
+    const [filename, setFilename] = useState("untitled");
 
-    const handleChange = (value: string) => {
-        setEditorValue(value);
-        onMarkdownChange(value);
+    const handleExport = () => {
+        const blob = new Blob([markdown], { type: "text/markdown" });
+        saveAs(blob, `${filename}.md`);
+    };
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if(!event.target.files) return;
+        const file = event.target.files[0];
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            if(!e.target) return;
+            const markdown = e.target.result;
+            if(typeof markdown === "string") {
+                onMarkdownChange(markdown);
+                setFilename((file.name).replace(".md", ""));
+            }
+        };
+        reader.readAsText(file);
     };
 
     return (
         <div className="editor-sidebar">
             <Toolbar editorRef={editorRef} />
+            <input type="file" onChange={handleFileChange} />
+            <label>
+                Name:
+                <input
+                    type="text"
+                    value={filename}
+                    onChange={(e) => setFilename(e.target.value)}
+                />
+            </label>
+            <button onClick={handleExport}>Export</button>
             <AceEditor
                 ref={editorRef}
                 mode="markdown"
                 theme="github"
-                name="UNIQUE_ID_OF_DIV"
+                name="id-ace-editor"
                 fontSize={13}
                 showPrintMargin={false}
-                onChange={handleChange}
-                value={editorValue}
+                onChange={onMarkdownChange}
+                value={markdown}
                 className="ace-editor"
-                editorProps={{
-                    $blockScrolling: true,
-                    statusBar: {
-                        show: true,
-                        values: [
-                            {
-                                key: "words",
-                                value: `Words: ${
-                                    editorValue.split(/\s+/).length
-                                }`,
-                            },
-                            {
-                                key: "chars",
-                                value: `Characters: ${editorValue.length}`,
-                            },
-                        ],
-                    },
-                }}
                 setOptions={{
                     enableBasicAutocompletion: true,
                     enableLiveAutocompletion: true,
