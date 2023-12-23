@@ -9,15 +9,15 @@ import emoji from "remark-emoji";
 
 import "./styles.css";
 
-type PreviewPropsType = {
+interface PropsType {
     markdown: string;
     counts: {
         wordCount: number;
         charCount: number;
     };
-};
+}
 
-const Preview = ({ markdown, counts }: PreviewPropsType) => {
+const Preview = ({ markdown, counts }: PropsType) => {
     return (
         <div className="preview-pane">
             <div className="preview-info">

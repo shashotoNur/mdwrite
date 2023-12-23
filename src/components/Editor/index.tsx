@@ -9,12 +9,12 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import "./styles.css"; // Import your CSS file
 import Toolbar from "../Toolbar";
 
-type EditorPropsType = {
+interface PropsType {
     markdown: string;
     onMarkdownChange: (newMarkdown: string) => void;
-};
+}
 
-const Editor: React.FC<EditorPropsType> = ({ markdown, onMarkdownChange }) => {
+const Editor: React.FC<PropsType> = ({ markdown, onMarkdownChange }) => {
     const editorRef = React.createRef<AceEditor>();
     const [filename, setFilename] = useState("untitled");
 

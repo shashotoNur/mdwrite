@@ -9,7 +9,6 @@ __Features__:
 - [x]  **Code Blocks:** Support for displaying code blocks within the editor.
 - [x]  **Word Count:** Display a live word and character count to help users track their progress.
 - [x]  **Responsive Design:** Ensure the editor works well on different devices and screen sizes.
-- [ ]  **Link Management:** Provide a simple way to manage hyperlinks.
 - [ ]  **Table Support:** Enable users to create tables easily within the editor.
 - [ ] **Search and Replace:** Include a search and replace functionality.
 - [ ] **Themes:** Offer light and dark theme for the editor to cater to users' preferences.
