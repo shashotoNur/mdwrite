@@ -34,7 +34,7 @@
     border-radius: 4px;
 }
 
-.insert-modal {
+.search-modal, .insert-modal {
     display: flex;
     overflow: hidden;
     overflow-x: scroll;

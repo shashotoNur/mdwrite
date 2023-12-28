@@ -5,6 +5,7 @@ import { saveAs } from "file-saver";
 import "ace-builds/src-noconflict/mode-markdown";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
+import "ace-builds/src-noconflict/ext-searchbox";
 
 import "./styles.css"; // Import your CSS file
 import Toolbar from "../Toolbar";
