@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IAceEditor } from "react-ace/lib/types";
 
 import "../Toolbar/styles.css"; // Import your CSS file
+import { ThemeContext } from "../../context/theme";
 
 interface InsertModalProps {
     insertType: string;
@@ -19,6 +20,10 @@ const InsertModal = ({
     const [insertText, setInsertText] = useState("");
     const [insertReference, setInsertReference] = useState("");
     const [insertUrl, setInsertUrl] = useState("");
+    const themeContext = useContext(ThemeContext);
+
+    if (!themeContext) return <div>Error: Theme context is null</div>;
+    const { theme } = themeContext;
 
     const insertTextAtCursor = (
         text: string,
@@ -76,9 +81,10 @@ const InsertModal = ({
 
     return (
         <div
-            className="insert-modal"
+            className={`insert-modal ${theme}`}
             style={{ display: showInsertModal ? "block" : "none" }}
         >
+            <p>Insert {insertType.charAt(0).toUpperCase() + insertType.substring(1)}</p>
             <input
                 type="text"
                 value={insertText}
@@ -102,7 +108,10 @@ const InsertModal = ({
                 placeholder="Enter link here"
             />
 
-            <button className="toolbar-button" onClick={handleSubmit}>
+            <button
+                className={`toolbar-button ${theme}`}
+                onClick={handleSubmit}
+            >
                 Insert
             </button>
         </div>

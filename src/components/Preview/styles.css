@@ -10,7 +10,6 @@ blockquote {
     padding: 10px 20px;
     background-color: #f9f9f9;
     font-style: italic;
-    line-height: 1.5;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -50,9 +49,7 @@ table:hover tr:hover {
 .preview-pane {
     padding: 20px;
     max-width: 50%;
-    border-radius: 5px;
     background-color: #fff;
-    border: 1px solid #e5e7eb;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -90,4 +87,55 @@ table:hover tr:hover {
     margin-bottom: 10px;
 }
 
-/* ... other styles for ReactMarkdown content */
+/* Dark theme styles */
+.dark.preview-pane * {
+    color: #E6EDF3; /* All text color*/
+}
+
+.dark.preview-pane pre {
+    background-color: #44475A;
+}
+
+.dark.preview-pane blockquote {
+    background-color: #44475A;
+}
+
+.dark.preview-pane table {
+    border: 1px solid #44475A;
+}
+
+.dark.preview-pane th {
+    padding: 10px;
+    background-color: #30363d;
+    border: 1px solid #44475A;
+}
+
+.dark.preview-pane td {
+    padding: 10px;
+    border-bottom: 1px solid #44475A;
+}
+
+.dark.preview-pane th,
+.dark.preview-pane td {
+    border-right: 1px solid #44475A; /* Adjust color as needed */
+}
+
+.dark.preview-pane tr:hover {
+    background-color: #30363d;
+}
+
+.dark.preview-pane tr:nth-child(even) {
+    background-color: #30363d;
+}
+
+.dark.preview-pane {
+    background-color: #0d1117; /* Dark input background color */
+}
+
+.dark.preview-info div {
+    background-color: #0d1117; /* Dark input background color */
+}
+
+.dark.preview-content {
+    background-color: #0d1117; /* Dark input background color */
+}

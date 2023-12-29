@@ -8,6 +8,8 @@ import rehypeHighlight from "rehype-highlight";
 import emoji from "remark-emoji";
 
 import "./styles.css";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/theme";
 
 interface PropsType {
     markdown: string;
@@ -18,13 +20,22 @@ interface PropsType {
 }
 
 const Preview = ({ markdown, counts }: PropsType) => {
+    const themeContext = useContext(ThemeContext);
+
+    if (!themeContext) return <div>Error: Theme context is null</div>;
+    const { theme } = themeContext;
+
     return (
-        <div className="preview-pane">
-            <div className="preview-info">
-                <div className="word-count">{counts.wordCount} words</div>
-                <div className="char-count">{counts.charCount} characters</div>
+        <div className={`preview-pane ${theme}`}>
+            <div className={`preview-info ${theme}`}>
+                <div className={`word-count ${theme}`}>
+                    {counts.wordCount} words
+                </div>
+                <div className={`char-count ${theme}`}>
+                    {counts.charCount} characters
+                </div>
             </div>
-            <div className="preview-content">
+            <div className={`preview-content ${theme}`}>
                 <ReactMarkdown
                     rehypePlugins={[
                         rehypeHighlight,

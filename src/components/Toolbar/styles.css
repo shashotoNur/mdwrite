@@ -34,7 +34,12 @@
     border-radius: 4px;
 }
 
-.search-modal, .insert-modal {
+.toolbar-select:hover {
+    cursor: pointer;
+}
+
+.search-modal,
+.insert-modal {
     display: flex;
     overflow: hidden;
     overflow-x: scroll;
@@ -49,7 +54,7 @@
 }
 
 .insert-modal input {
-    margin-left: 1%;
+    margin-left: 5px;
     padding: 5px 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -59,4 +64,39 @@
 .insert-modal button {
     max-height: 75%;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dark.toolbar {
+    background-color: #0d1117; /* Dark toolbar background color */
+    color: #E6EDF3; /* Light text color */
+    border: 1px solid #44475a; /* Darker border color */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Darker box shadow */
+}
+
+.dark.toolbar-button {
+    background-color: #44475a; /* Darker button background color */
+    color: #E6EDF3; /* Light text color */
+}
+
+.dark.toolbar-button:hover {
+    background-color: #545862; /* Darker button background color on hover */
+}
+
+.dark.toolbar-select {
+    border: 1px solid #44475a; /* Darker border color */
+}
+
+.dark.search-modal,
+.dark.insert-modal {
+    background-color: #0d1117; /* Dark modal background color */
+    color: #E6EDF3; /* Light text color */
+    border: 1px solid #44475a; /* Darker border color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Darker box shadow */
+}
+
+.dark.search-modal input,
+.dark.insert-modal input {
+    border: 1px solid #44475a; /* Darker border color */
+    background-color: #0d1117; /* Dark input background color */
+    color: #E6EDF3;
 }

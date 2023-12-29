@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import AceEditor from "react-ace";
 
 import "../Toolbar/styles.css"; // Import your CSS file
+import { ThemeContext } from "../../context/theme";
 
 interface PropsType {
     editorRef: React.RefObject<AceEditor>;
 }
 
 const SingleSymbolTools = ({ editorRef }: PropsType) => {
+    const themeContext = useContext(ThemeContext);
+
+    if (!themeContext) return <div>Error: Theme context is null</div>;
+    const { theme } = themeContext;
 
     const insertSingleSymbol = (symbol: string) => {
         const editor = editorRef.current?.editor;
@@ -34,7 +39,7 @@ const SingleSymbolTools = ({ editorRef }: PropsType) => {
     return (
         <>
             <select
-                className="toolbar-select"
+                className={`toolbar-select ${theme}`}
                 defaultValue=""
                 onChange={handleHeadingChange}
             >
@@ -47,37 +52,37 @@ const SingleSymbolTools = ({ editorRef }: PropsType) => {
                 <option value="6">Heading 6</option>
             </select>
             <button
-                className="toolbar-button"
+                className={`toolbar-button ${theme}`}
                 onClick={() => insertSingleSymbol("- ")}
             >
                 Unordered List
             </button>
             <button
-                className="toolbar-button"
+                className={`toolbar-button ${theme}`}
                 onClick={() => insertSingleSymbol("1. ")}
             >
                 Ordered List
             </button>
             <button
-                className="toolbar-button"
+                className={`toolbar-button ${theme}`}
                 onClick={() => insertSingleSymbol("- [ ] ")}
             >
                 Checkbox
             </button>
             <button
-                className="toolbar-button"
+                className={`toolbar-button ${theme}`}
                 onClick={() => insertSingleSymbol("---\n")}
             >
                 Rule
             </button>
             <button
-                className="toolbar-button"
+                className={`toolbar-button ${theme}`}
                 onClick={() => insertSingleSymbol("<br>")}
             >
                 Break
             </button>
             <button
-                className="toolbar-button"
+                className={`toolbar-button ${theme}`}
                 onClick={() => insertSingleSymbol("> ")}
             >
                 Quote

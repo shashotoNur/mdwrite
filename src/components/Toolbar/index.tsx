@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AceEditor from "react-ace";
 
 import "./styles.css"; // Import your CSS file
 import InsertModal from "../Tools/InsertModal";
 import SingleSymbolTools from "../Tools/singleSymbolTools";
 import DoubleSymbolTools from "../Tools/doubleSymbolTools";
+import { ThemeContext } from "../../context/theme";
 
 interface PropsType {
     editorRef: React.RefObject<AceEditor>;
@@ -17,6 +18,10 @@ const Toolbar = ({ editorRef }: PropsType) => {
     const [searchText, setSearchText] = useState("");
     const [replacementText, setReplacementText] = useState("");
     const [hideSearch, setHideSearch] = useState(true);
+    const themeContext = useContext(ThemeContext);
+
+    if (!themeContext) return <div>Error: Theme context is null</div>;
+    const { theme, toggleTheme } = themeContext;
 
     const handleSearch = () => {
         const editor = editorRef.current?.editor;
@@ -70,9 +75,12 @@ const Toolbar = ({ editorRef }: PropsType) => {
     };
 
     return (
-        <div className="toolbar">
+        <div className={`toolbar ${theme}`}>
+            <button className={`toolbar-button ${theme}`} onClick={toggleTheme}>
+                <i>{ theme === "light" ? "Day" : "Night" }</i>
+            </button>
             <button
-                className="toolbar-button"
+                className={`toolbar-button ${theme}`}
                 onClick={() => setHideToolbar(!hideToolbar)}
             >
                 <b>
@@ -84,46 +92,46 @@ const Toolbar = ({ editorRef }: PropsType) => {
                     <DoubleSymbolTools editorRef={editorRef} />
                     <SingleSymbolTools editorRef={editorRef} />
                     <button
-                        className="toolbar-button"
+                        className={`toolbar-button ${theme}`}
                         onClick={createCodeBlock}
                     >
                         Code
                     </button>
                     <div>
                         <button
-                            className="toolbar-button"
+                            className={`toolbar-button ${theme}`}
                             onClick={() => handleInsert("link")}
                         >
                             Link
                         </button>
                         <button
-                            className="toolbar-button"
+                            className={`toolbar-button ${theme}`}
                             onClick={() => handleInsert("image")}
                         >
                             Image
                         </button>
                         <button
-                            className="toolbar-button"
+                            className={`toolbar-button ${theme}`}
                             onClick={() => handleInsert("reference")}
                         >
                             Reference
                         </button>
                     </div>
                     <button
-                        className="toolbar-button"
+                        className={`toolbar-button ${theme}`}
                         onClick={() => setHideSearch(!hideSearch)}
                     >
                         🔍
                     </button>
                     {!hideSearch && (
-                        <div className="search-modal">
+                        <div className={`search-modal ${theme}`}>
                             <input
                                 type="text"
                                 placeholder="Search"
                                 onChange={(e) => setSearchText(e.target.value)}
                             />
                             <button
-                                className="toolbar-button"
+                                className={`toolbar-button ${theme}`}
                                 onClick={handleSearch}
                             >
                                 Search
@@ -136,13 +144,13 @@ const Toolbar = ({ editorRef }: PropsType) => {
                                 }
                             />
                             <button
-                                className="toolbar-button"
+                                className={`toolbar-button ${theme}`}
                                 onClick={handleReplace}
                             >
                                 Replace
                             </button>
                             <button
-                                className="toolbar-button"
+                                className={`toolbar-button ${theme}`}
                                 onClick={handleReplaceAll}
                             >
                                 Replace All

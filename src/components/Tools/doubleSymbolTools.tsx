@@ -1,13 +1,15 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import AceEditor from "react-ace";
 
 import "../Toolbar/styles.css"; // Import your CSS file
+import { ThemeContext } from "../../context/theme";
 
 interface PropsType {
     editorRef: React.RefObject<AceEditor>;
 }
 
 const DoubleSymbolTools = ({ editorRef }: PropsType) => {
+    const themeContext = useContext(ThemeContext);
     const insertDoubleSymbol = useCallback(
         (symbol: string) => {
             const editor = editorRef.current?.editor;
@@ -64,40 +66,43 @@ const DoubleSymbolTools = ({ editorRef }: PropsType) => {
         };
     }, [insertDoubleSymbol]);
 
+    if (!themeContext) return <div>Error: Theme context is null</div>;
+    const { theme } = themeContext;
+
     return (
         <>
             <button
-                className="toolbar-button"
+                className={`toolbar-button ${theme}`}
                 onClick={() => insertDoubleSymbol("__")}
             >
                 <b>B</b>
             </button>
             <button
-                className="toolbar-button"
+                className={`toolbar-button ${theme}`}
                 onClick={() => insertDoubleSymbol("_")}
             >
                 <i>I</i>
             </button>
             <button
-                className="toolbar-button"
+                className={`toolbar-button ${theme}`}
                 onClick={() => insertDoubleSymbol("<ins>")}
             >
                 <u>u</u>
             </button>
             <button
-                className="toolbar-button"
+                className={`toolbar-button ${theme}`}
                 onClick={() => insertDoubleSymbol("~")}
             >
                 <del>Strike</del>
             </button>
             <button
-                className="toolbar-button"
+                className={`toolbar-button ${theme}`}
                 onClick={() => insertDoubleSymbol("<sub>")}
             >
                 Sub
             </button>
             <button
-                className="toolbar-button"
+                className={`toolbar-button ${theme}`}
                 onClick={() => insertDoubleSymbol("<sup>")}
             >
                 Super

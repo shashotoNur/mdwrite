@@ -1,18 +1,27 @@
+body {
+    margin: 0;
+    padding: 0;
+}
 .app-container {
-  display: flex; /* Arrange elements horizontally */
-  max-height: 96vh; /* Fill the entire viewport height */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Arrange elements horizontally */
+    width: 100vw; /* Fill the entire viewport height */
+    min-height: 100vh;
+    max-height: 150vh;
 }
 
 .app-container > * {
-  flex: 1; /* Ensure both nested components take up equal width */
+    flex: 1; /* Ensure both nested components take up equal width */
 }
 
-@media (max-width: 768px) { /* Adjust breakpoint as needed */
-  .app-container {
-    flex-direction: column; /* Stack elements vertically */
-  }
+.app-container.dark {
+    background-color: #000000;
+}
 
-  .preview-toggle {
-    margin-top: 15px; /* Add spacing above the button */
-  }
+@media (max-width: 768px) {
+    /* Adjust breakpoint as needed */
+    .app-container {
+        flex-direction: column; /* Stack elements vertically */
+    }
 }
