@@ -3,24 +3,24 @@ import { IAceEditor } from "react-ace/lib/types";
 
 import "../Toolbar/styles.css"; // Import your CSS file
 import { ThemeContext } from "../../context/theme";
+import { EditorContext } from "../../context/editor";
 
 interface InsertModalProps {
     insertType: string;
     showInsertModal: boolean;
     setShowInsertModal: React.Dispatch<React.SetStateAction<boolean>>;
-    editor: IAceEditor | undefined;
 }
 
 const InsertModal = ({
     insertType,
     showInsertModal,
     setShowInsertModal,
-    editor,
 }: InsertModalProps) => {
     const [insertText, setInsertText] = useState("");
     const [insertReference, setInsertReference] = useState("");
     const [insertUrl, setInsertUrl] = useState("");
     const themeContext = useContext(ThemeContext);
+    const { editor } = useContext(EditorContext)!;
 
     if (!themeContext) return <div>Error: Theme context is null</div>;
     const { theme } = themeContext;

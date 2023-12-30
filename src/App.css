@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 .app-container {
     margin: 0;
     padding: 0;
@@ -13,10 +14,6 @@ body {
 
 .app-container > * {
     flex: 1; /* Ensure both nested components take up equal width */
-}
-
-.app-container.dark {
-    background-color: #000000;
 }
 
 @media (max-width: 768px) {

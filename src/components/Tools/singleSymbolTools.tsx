@@ -1,21 +1,17 @@
 import React, { useContext } from "react";
-import AceEditor from "react-ace";
 
 import "../Toolbar/styles.css"; // Import your CSS file
 import { ThemeContext } from "../../context/theme";
+import { EditorContext } from "../../context/editor";
 
-interface PropsType {
-    editorRef: React.RefObject<AceEditor>;
-}
-
-const SingleSymbolTools = ({ editorRef }: PropsType) => {
+const SingleSymbolTools = () => {
     const themeContext = useContext(ThemeContext);
+    const { editor } = useContext(EditorContext)!;
 
     if (!themeContext) return <div>Error: Theme context is null</div>;
     const { theme } = themeContext;
 
     const insertSingleSymbol = (symbol: string) => {
-        const editor = editorRef.current?.editor;
         if (!editor) return;
 
         const cursorPosition = editor.getCursorPosition();
@@ -31,7 +27,6 @@ const SingleSymbolTools = ({ editorRef }: PropsType) => {
         event: React.ChangeEvent<HTMLSelectElement>
     ) => {
         const selectedHeading = event.target.value;
-        const editor = editorRef.current?.editor;
         if (!selectedHeading || !editor) return;
         insertSingleSymbol(`${"#".repeat(Number(selectedHeading))} `);
         event.target.value = "";

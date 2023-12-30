@@ -1,109 +1,58 @@
-import React, { useCallback, useContext, useEffect } from "react";
-import AceEditor from "react-ace";
+import { useContext } from "react";
 
 import "../Toolbar/styles.css"; // Import your CSS file
 import { ThemeContext } from "../../context/theme";
+import { insertDoubleSymbol } from "../../utils/keyPress";
+import { EditorContext } from "../../context/editor";
 
-interface PropsType {
-    editorRef: React.RefObject<AceEditor>;
-}
-
-const DoubleSymbolTools = ({ editorRef }: PropsType) => {
+const DoubleSymbolTools = () => {
     const themeContext = useContext(ThemeContext);
-    const insertDoubleSymbol = useCallback(
-        (symbol: string) => {
-            const editor = editorRef.current?.editor;
-            if (!editor) return;
+    const { editor } = useContext(EditorContext)!;
 
-            const cursorPosition = editor.getCursorPosition();
-            const selection = editor.getSelectedText();
-            const secondSymbol = symbol.replace("<", "</");
+    const callInsertDoubleSymbol = (symbol: string) => {
+        if (!editor) return;
+        insertDoubleSymbol(symbol, editor);
+    };
 
-            if (selection) {
-                const range = editor.getSelectionRange();
-                editor.session.replace(
-                    range,
-                    `${symbol}${selection}${secondSymbol}`
-                );
-            } else {
-                // If there is no selection, insert the symbol at the cursor position
-                const position = {
-                    row: cursorPosition.row,
-                    column: cursorPosition.column,
-                };
-                editor.session.insert(position, `${symbol}${secondSymbol}`);
-
-                const newPosition = {
-                    row: position.row,
-                    column: position.column + symbol.length,
-                };
-
-                editor.clearSelection();
-                editor.moveCursorToPosition(newPosition);
-            }
-
-            editor.focus();
-        },
-        [editorRef]
-    );
-
-    useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (!event.ctrlKey) return;
-            if (event.key === "b" || event.key === "B") {
-                event.preventDefault();
-                insertDoubleSymbol("__");
-            } else if (event.key === "i" || event.key === "I") {
-                event.preventDefault();
-                insertDoubleSymbol("_");
-            }
-        };
-
-        document.addEventListener("keydown", handleKeyDown);
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown);
-        };
-    }, [insertDoubleSymbol]);
-
-    if (!themeContext) return <div>Error: Theme context is null</div>;
+    if (!themeContext || !editor)
+        return <div>Error: {!editor ? "Editor" : "Theme"} is null</div>;
     const { theme } = themeContext;
 
     return (
         <>
             <button
                 className={`toolbar-button ${theme}`}
-                onClick={() => insertDoubleSymbol("__")}
+                onClick={() => callInsertDoubleSymbol("__")}
             >
                 <b>B</b>
             </button>
             <button
                 className={`toolbar-button ${theme}`}
-                onClick={() => insertDoubleSymbol("_")}
+                onClick={() => callInsertDoubleSymbol("_")}
             >
                 <i>I</i>
             </button>
             <button
                 className={`toolbar-button ${theme}`}
-                onClick={() => insertDoubleSymbol("<ins>")}
+                onClick={() => callInsertDoubleSymbol("<ins>")}
             >
                 <u>u</u>
             </button>
             <button
                 className={`toolbar-button ${theme}`}
-                onClick={() => insertDoubleSymbol("~")}
+                onClick={() => callInsertDoubleSymbol("~")}
             >
                 <del>Strike</del>
             </button>
             <button
                 className={`toolbar-button ${theme}`}
-                onClick={() => insertDoubleSymbol("<sub>")}
+                onClick={() => callInsertDoubleSymbol("<sub>")}
             >
                 Sub
             </button>
             <button
                 className={`toolbar-button ${theme}`}
-                onClick={() => insertDoubleSymbol("<sup>")}
+                onClick={() => callInsertDoubleSymbol("<sup>")}
             >
                 Super
             </button>

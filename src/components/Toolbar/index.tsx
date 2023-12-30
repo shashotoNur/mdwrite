@@ -1,17 +1,13 @@
-import React, { useContext, useState } from "react";
-import AceEditor from "react-ace";
+import { useContext, useState } from "react";
 
 import "./styles.css"; // Import your CSS file
 import InsertModal from "../Tools/InsertModal";
 import SingleSymbolTools from "../Tools/singleSymbolTools";
 import DoubleSymbolTools from "../Tools/doubleSymbolTools";
 import { ThemeContext } from "../../context/theme";
+import { EditorContext } from "../../context/editor";
 
-interface PropsType {
-    editorRef: React.RefObject<AceEditor>;
-}
-
-const Toolbar = ({ editorRef }: PropsType) => {
+const Toolbar = () => {
     const [showInsertModal, setShowInsertModal] = useState(false);
     const [insertType, setInsertType] = useState("link"); // Default to "Link"
     const [hideToolbar, setHideToolbar] = useState(true);
@@ -19,38 +15,38 @@ const Toolbar = ({ editorRef }: PropsType) => {
     const [replacementText, setReplacementText] = useState("");
     const [hideSearch, setHideSearch] = useState(true);
     const themeContext = useContext(ThemeContext);
+    const { editor } = useContext(EditorContext)!;
 
     if (!themeContext) return <div>Error: Theme context is null</div>;
     const { theme, toggleTheme } = themeContext;
 
     const handleSearch = () => {
-        const editor = editorRef.current?.editor;
         if (!editor) return;
+
         editor.find(searchText, {
             caseSensitive: false,
-            wholeWord: true,
+            wholeWord: false,
             regExp: false,
         });
     };
 
     const handleReplace = () => {
-        const editor = editorRef.current?.editor;
         if (!editor) return;
         editor.replace(replacementText); // Replace with actual replacement text
     };
 
     const handleReplaceAll = () => {
-        const editor = editorRef.current?.editor;
         if (!editor) return;
         editor.replaceAll(replacementText, {
             caseSensitive: false,
-            wholeWord: true,
+            wholeWord: false,
             regExp: false,
         });
+
+        editor.clearSelection();
     };
 
     const createCodeBlock = () => {
-        const editor = editorRef.current?.editor;
         if (!editor) return;
 
         const cursorPosition = editor.getCursorPosition();
@@ -77,7 +73,7 @@ const Toolbar = ({ editorRef }: PropsType) => {
     return (
         <div className={`toolbar ${theme}`}>
             <button className={`toolbar-button ${theme}`} onClick={toggleTheme}>
-                <i>{ theme === "light" ? "Day" : "Night" }</i>
+                <i>{theme === "light" ? "Day" : "Night"}</i>
             </button>
             <button
                 className={`toolbar-button ${theme}`}
@@ -89,8 +85,8 @@ const Toolbar = ({ editorRef }: PropsType) => {
             </button>
             {!hideToolbar && (
                 <>
-                    <DoubleSymbolTools editorRef={editorRef} />
-                    <SingleSymbolTools editorRef={editorRef} />
+                    <DoubleSymbolTools />
+                    <SingleSymbolTools />
                     <button
                         className={`toolbar-button ${theme}`}
                         onClick={createCodeBlock}
@@ -162,7 +158,6 @@ const Toolbar = ({ editorRef }: PropsType) => {
                         insertType={insertType}
                         showInsertModal={showInsertModal}
                         setShowInsertModal={setShowInsertModal}
-                        editor={editorRef.current?.editor}
                     ></InsertModal>
                 </>
             )}

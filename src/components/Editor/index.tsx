@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import AceEditor from "react-ace";
 import { saveAs } from "file-saver";
 
@@ -11,16 +11,34 @@ import "ace-builds/src-noconflict/ext-searchbox";
 import "./styles.css"; // Import your CSS file
 import Toolbar from "../Toolbar";
 import { ThemeContext } from "../../context/theme";
+import { MarkdownContext } from "../../context/markdown";
+import { EditorContext } from "../../context/editor";
+import { handleKeyDown } from "../../utils/keyPress";
 
-interface PropsType {
-    markdown: string;
-    onMarkdownChange: (newMarkdown: string) => void;
-}
-
-const Editor: React.FC<PropsType> = ({ markdown, onMarkdownChange }) => {
+const Editor = () => {
     const editorRef = React.createRef<AceEditor>();
-    const [filename, setFilename] = useState("untitled");
     const themeContext = useContext(ThemeContext);
+    const { filename, markdown, handleChange, filenameChange } =
+        useContext(MarkdownContext)!;
+    const { editor, changeEditor } = useContext(EditorContext)!;
+
+    useEffect(() => {
+        if (!editorRef.current) return;
+        changeEditor(editorRef);
+    }, [editorRef, changeEditor]);
+
+    useEffect(() => {
+        document.addEventListener("keydown", (event) => {
+            if (!editor) return;
+            handleKeyDown({ event, editor, filename, markdown });
+        });
+        return () => {
+            document.removeEventListener("keydown", (event) => {
+                if (!editor) return;
+                handleKeyDown({ event, editor, filename, markdown });
+            });
+        };
+    }, [editor, filename, markdown]);
 
     if (!themeContext) return <div>Error: Theme context is null</div>;
     const { theme } = themeContext;
@@ -39,8 +57,8 @@ const Editor: React.FC<PropsType> = ({ markdown, onMarkdownChange }) => {
             if (!e.target) return;
             const markdown = e.target.result;
             if (typeof markdown === "string") {
-                onMarkdownChange(markdown);
-                setFilename(file.name.replace(".md", ""));
+                handleChange(markdown);
+                filenameChange(file.name.replace(".md", ""));
             }
         };
         reader.readAsText(file);
@@ -48,7 +66,7 @@ const Editor: React.FC<PropsType> = ({ markdown, onMarkdownChange }) => {
 
     return (
         <div className={`editor-sidebar ${theme}`}>
-            <Toolbar editorRef={editorRef} />
+            <Toolbar />
 
             <div className={`file-input-group ${theme}`}>
                 <label htmlFor="filename-input">
@@ -56,7 +74,7 @@ const Editor: React.FC<PropsType> = ({ markdown, onMarkdownChange }) => {
                         type="text"
                         className={`filename-input ${theme}`}
                         value={filename}
-                        onChange={(e) => setFilename(e.target.value)}
+                        onChange={(e) => filenameChange(e.target.value)}
                     />
                 </label>
 
@@ -76,7 +94,7 @@ const Editor: React.FC<PropsType> = ({ markdown, onMarkdownChange }) => {
                 name="id-ace-editor"
                 fontSize={13}
                 showPrintMargin={false}
-                onChange={onMarkdownChange}
+                onChange={handleChange}
                 value={markdown}
                 className={`ace-editor`}
                 setOptions={{

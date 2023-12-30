@@ -1,3 +1,5 @@
+import { useContext } from "react";
+
 import ReactMarkdown from "react-markdown";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
@@ -7,20 +9,14 @@ import rehypeStringify from "rehype-stringify";
 import rehypeHighlight from "rehype-highlight";
 import emoji from "remark-emoji";
 
-import "./styles.css";
-import { useContext } from "react";
 import { ThemeContext } from "../../context/theme";
+import { MarkdownContext } from "../../context/markdown";
 
-interface PropsType {
-    markdown: string;
-    counts: {
-        wordCount: number;
-        charCount: number;
-    };
-}
+import "./styles.css";
 
-const Preview = ({ markdown, counts }: PropsType) => {
+const Preview = () => {
     const themeContext = useContext(ThemeContext);
+    const {markdown, wordCount, charCount } = useContext(MarkdownContext)!;
 
     if (!themeContext) return <div>Error: Theme context is null</div>;
     const { theme } = themeContext;
@@ -29,10 +25,10 @@ const Preview = ({ markdown, counts }: PropsType) => {
         <div className={`preview-pane ${theme}`}>
             <div className={`preview-info ${theme}`}>
                 <div className={`word-count ${theme}`}>
-                    {counts.wordCount} words
+                    {wordCount} words
                 </div>
                 <div className={`char-count ${theme}`}>
-                    {counts.charCount} characters
+                    {charCount} characters
                 </div>
             </div>
             <div className={`preview-content ${theme}`}>
