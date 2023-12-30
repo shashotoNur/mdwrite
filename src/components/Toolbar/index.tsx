@@ -1,11 +1,14 @@
 import { useContext, useState } from "react";
 
-import "./styles.css"; // Import your CSS file
-import InsertModal from "../Tools/InsertModal";
-import SingleSymbolTools from "../Tools/singleSymbolTools";
-import DoubleSymbolTools from "../Tools/doubleSymbolTools";
-import { ThemeContext } from "../../context/theme";
-import { EditorContext } from "../../context/editor";
+import { ThemeContext } from "context/theme";
+import { EditorContext } from "context/editor";
+import {
+    DoubleSymbolTools,
+    SingleSymbolTools,
+    InsertModal,
+} from "components/Toolbar/Tools";
+
+import "components/Toolbar/styles.css";
 
 const Toolbar = () => {
     const [showInsertModal, setShowInsertModal] = useState(false);

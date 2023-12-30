@@ -9,10 +9,10 @@ import rehypeStringify from "rehype-stringify";
 import rehypeHighlight from "rehype-highlight";
 import emoji from "remark-emoji";
 
-import { ThemeContext } from "../../context/theme";
-import { MarkdownContext } from "../../context/markdown";
+import { ThemeContext } from "context/theme";
+import { MarkdownContext } from "context/markdown";
 
-import "./styles.css";
+import "components/Preview/styles.css";
 
 const Preview = () => {
     const themeContext = useContext(ThemeContext);

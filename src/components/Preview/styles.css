@@ -93,35 +93,35 @@ table:hover tr:hover {
 
 /* Dark theme styles */
 .dark.preview-pane * {
-    color: #E6EDF3; /* All text color*/
+    color: #e6edf3; /* All text color*/
 }
 
 .dark.preview-pane pre {
-    background-color: #44475A;
+    background-color: #44475a;
 }
 
 .dark.preview-pane blockquote {
-    background-color: #44475A;
+    background-color: #44475a;
 }
 
 .dark.preview-pane table {
-    border: 1px solid #44475A;
+    border: 1px solid #44475a;
 }
 
 .dark.preview-pane th {
     padding: 10px;
     background-color: #30363d;
-    border: 1px solid #44475A;
+    border: 1px solid #44475a;
 }
 
 .dark.preview-pane td {
     padding: 10px;
-    border-bottom: 1px solid #44475A;
+    border-bottom: 1px solid #44475a;
 }
 
 .dark.preview-pane th,
 .dark.preview-pane td {
-    border-right: 1px solid #44475A; /* Adjust color as needed */
+    border-right: 1px solid #44475a; /* Adjust color as needed */
 }
 
 .dark.preview-pane tr:hover {
@@ -142,4 +142,11 @@ table:hover tr:hover {
 
 .dark.preview-content {
     background-color: #0d1117; /* Dark input background color */
+}
+
+@media (max-width: 768px) {
+    /* Adjust breakpoint as needed */
+    .preview-pane {
+        max-width: 100%;
+    }
 }

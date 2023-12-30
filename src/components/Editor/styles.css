@@ -12,6 +12,7 @@
 
 .file-input-group {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 10px; /* Spacing between file input and label */
 }

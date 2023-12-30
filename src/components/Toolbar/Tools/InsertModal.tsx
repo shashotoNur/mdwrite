@@ -1,9 +1,8 @@
 import { useContext, useState } from "react";
 import { IAceEditor } from "react-ace/lib/types";
 
-import "../Toolbar/styles.css"; // Import your CSS file
-import { ThemeContext } from "../../context/theme";
-import { EditorContext } from "../../context/editor";
+import { ThemeContext } from "context/theme";
+import { EditorContext } from "context/editor";
 
 interface InsertModalProps {
     insertType: string;
@@ -84,7 +83,10 @@ const InsertModal = ({
             className={`insert-modal ${theme}`}
             style={{ display: showInsertModal ? "block" : "none" }}
         >
-            <p>Insert {insertType.charAt(0).toUpperCase() + insertType.substring(1)}</p>
+            <p>
+                Insert{" "}
+                {insertType.charAt(0).toUpperCase() + insertType.substring(1)}
+            </p>
             <input
                 type="text"
                 value={insertText}

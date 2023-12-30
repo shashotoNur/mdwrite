@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
 
-import "../Toolbar/styles.css"; // Import your CSS file
-import { ThemeContext } from "../../context/theme";
-import { EditorContext } from "../../context/editor";
+import { ThemeContext } from "context/theme";
+import { EditorContext } from "context/editor";
 
 const SingleSymbolTools = () => {
     const themeContext = useContext(ThemeContext);

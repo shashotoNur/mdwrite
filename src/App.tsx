@@ -1,9 +1,9 @@
-import Editor from "./components/Editor";
-import Preview from "./components/Preview";
+import Editor from "components/Editor";
+import Preview from "components/Preview";
 
-import ThemeProvider from "./context/theme.tsx";
-import MarkdownProvider from "./context/markdown.tsx";
-import EditorProvider from "./context/editor.tsx";
+import ThemeProvider from "context/theme.tsx";
+import MarkdownProvider from "context/markdown.tsx";
+import EditorProvider from "context/editor.tsx";
 
 import "./App.css";
 

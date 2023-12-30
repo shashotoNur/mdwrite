@@ -1,9 +1,8 @@
 import { useContext } from "react";
 
-import "../Toolbar/styles.css"; // Import your CSS file
-import { ThemeContext } from "../../context/theme";
-import { insertDoubleSymbol } from "../../utils/keyPress";
-import { EditorContext } from "../../context/editor";
+import { ThemeContext } from "context/theme";
+import { insertDoubleSymbol } from "utils/keyPress";
+import { EditorContext } from "context/editor";
 
 const DoubleSymbolTools = () => {
     const themeContext = useContext(ThemeContext);
