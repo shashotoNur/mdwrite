@@ -17,7 +17,7 @@ export const handleKeyDown = ({ event, editor, filename, markdown }: KeyDownProp
         insertDoubleSymbol("_", editor);
     } else if (event.key === "s" || event.key === "S") {
         event.preventDefault();
-        localStorage.setItem(filename, markdown);
+        localStorage.setItem(`Entry: ${filename}`, markdown);
     }
 };
 
