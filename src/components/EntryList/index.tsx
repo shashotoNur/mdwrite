@@ -8,10 +8,20 @@ import { exportMarkdown } from "utils/exportMarkdown";
 interface Entry {
     filename: string;
     markdown: string;
+    timestamp:string;
+}
+
+interface GroupedEntry {
+    entryName: string;
+    entries: {
+        filename: string;
+        markdown: string;
+        timestamp: string;
+    }[];
 }
 
 const EntryList = ({ closeList }: { closeList: () => void }) => {
-    const [entries, setEntries] = useState<Entry[]>([]);
+    const [groupedEntries, setGroupedEntries] = useState<GroupedEntry[]>([]);
     const { handleChange, filenameChange } = useContext(MarkdownContext)!;
     const { theme } = useContext(ThemeContext)!;
 
@@ -19,24 +29,85 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
         const storedEntries = Object.entries(localStorage)
             .filter(([key]) => key.startsWith("Entry: "))
             .map(([key, value]: [key: string, value: string]) => ({
-                filename: key.replace("Entry: ", ""),
+                filename: key.replace("Entry: ", "").split(" - ")[0],
                 markdown: value,
+                timestamp: key.replace("Entry: ", "").split(" - ")[1],
             }));
-        setEntries(storedEntries);
+
+        const groupedEntries = Object.entries(
+            storedEntries.reduce<
+                Record<
+                    string,
+                    Entry[]
+                >
+            >((acc, { filename, markdown, timestamp }) => {
+                if (!acc[filename]) acc[filename] = [];
+                acc[filename].push({ filename, markdown, timestamp });
+                return acc;
+            }, {} as Record<string, Entry[]>)
+        ).map(([entryName, entries]) => ({ entryName, entries }));
+
+        setGroupedEntries(groupedEntries);
     }, [closeList]);
 
-    const handleEntrySelect = (entry: Entry) => {
+    const getTimestamp = (item: string) => {
+        const months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+        ];
+
+        const dateTimeString = item;
+        const dateObject = new Date(dateTimeString); // Convert string to Date object
+
+        const date = dateObject.getDate();
+        const month = months[dateObject.getMonth()];
+        const year = dateObject.getFullYear();
+
+        const formattedDate = `${date} ${month}, ${year}`;
+
+        const hours = dateObject.getHours();
+        const minutes = dateObject.getMinutes();
+        const meridian = hours >= 12 ? "PM" : "AM";
+
+        const formattedTime = `${hours % 12 || 12}:${minutes
+            .toString()
+            .padStart(2, "0")} ${meridian}`; // Example output: "9:01 AM"
+
+        return `${formattedTime} - ${formattedDate}`;
+    };
+
+    const openEntry = (entry: Entry) => {
         filenameChange(entry.filename);
         handleChange(entry.markdown);
         closeList();
     };
 
-    const handleEntryDelete = (entry: Entry) => {
-        // Remove the entry from local storage
-        localStorage.removeItem(`Entry: ${entry.filename}`);
+    const deleteEntry = (target: Entry) => {
+        localStorage.removeItem(`Entry: ${target.filename} - ${target.timestamp}`);
 
-        // Update the entries state to reflect the removal
-        setEntries(entries.filter((e) => e.filename !== entry.filename));
+        const newEntries = groupedEntries.map((entry) => {
+            if (entry.entryName === target.filename) {
+                return {
+                    ...entry,
+                    entries: entry.entries.filter(
+                        (detail) => detail.timestamp !== target.timestamp
+                    ),
+                };
+            }
+            return entry;
+        });
+
+        setGroupedEntries(newEntries);
     };
 
     return (
@@ -46,41 +117,50 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
                 key="New Entry"
                 className={`entry-button ${theme}`}
                 onClick={() =>
-                    handleEntrySelect({ filename: "untitled", markdown: "" })
+                    openEntry({
+                        filename: "untitled",
+                        markdown: "",
+                        timestamp: "",
+                    })
                 }
             >
                 New Entry
             </button>
-            {entries.map((entry, index) => (
-                <div key={entry.filename} className="entry">
-                    <button
-                        className={`entry-button ${theme}`}
-                        onClick={() => handleEntrySelect(entry)}
-                    >
-                        <b>
-                            {index + 1}.{" "}
-                            {entry.filename.length > 50
-                                ? entry.filename.substring(0, 70) + "..."
-                                : entry.filename}
-                        </b>
-                    </button>
-                    <button
-                        className={`export-button ${theme}`}
-                        onClick={() =>
-                            exportMarkdown({
-                                filename: entry.filename,
-                                markdown: entry.markdown,
-                            })
-                        }
-                    >
-                        Export
-                    </button>
-                    <button
-                        className="delete-button"
-                        onClick={() => handleEntryDelete(entry)}
-                    >
-                        Delete
-                    </button>
+            {groupedEntries.map((entry) => (
+                <div key={entry.entryName}>
+                    <div className={`entry-title ${theme}`}>
+                        {entry.entryName.length > 50
+                            ? entry.entryName.substring(0, 70) + "..."
+                            : entry.entryName}
+                    </div>
+                    {entry.entries.map((entry) => (
+                        <div className="entry" key={entry.timestamp}>
+                            <br />
+                            <button
+                                className={`entry-button ${theme}`}
+                                onClick={() => openEntry(entry)}
+                            >
+                                {getTimestamp(entry.timestamp)}
+                            </button>
+                            <button
+                                className={`export-button ${theme}`}
+                                onClick={() =>
+                                    exportMarkdown({
+                                        filename: entry.filename,
+                                        markdown: entry.markdown,
+                                    })
+                                }
+                            >
+                                Export
+                            </button>
+                            <button
+                                className="delete-button"
+                                onClick={() => deleteEntry(entry)}
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    ))}
                 </div>
             ))}
         </div>

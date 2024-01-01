@@ -1,4 +1,5 @@
 import { IAceEditor } from "react-ace/lib/types";
+import { saveToStorage } from "./saveToStorage";
 
 interface KeyDownProps {
     event: KeyboardEvent;
@@ -7,7 +8,12 @@ interface KeyDownProps {
     markdown: string;
 }
 
-export const handleKeyDown = ({ event, editor, filename, markdown }: KeyDownProps) => {
+export const handleKeyDown = ({
+    event,
+    editor,
+    filename,
+    markdown,
+}: KeyDownProps) => {
     if (!event.ctrlKey) return;
     if (event.key === "b" || event.key === "B") {
         event.preventDefault();
@@ -17,14 +23,11 @@ export const handleKeyDown = ({ event, editor, filename, markdown }: KeyDownProp
         insertDoubleSymbol("_", editor);
     } else if (event.key === "s" || event.key === "S") {
         event.preventDefault();
-        localStorage.setItem(`Entry: ${filename}`, markdown);
+        saveToStorage({ filename, markdown });
     }
 };
 
-export const insertDoubleSymbol = (
-    symbol: string,
-    editor: IAceEditor
-) => {
+export const insertDoubleSymbol = (symbol: string, editor: IAceEditor) => {
     if (!editor) return;
 
     const cursorPosition = editor.getCursorPosition();

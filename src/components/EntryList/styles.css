@@ -23,6 +23,15 @@
     color: #333;
 }
 
+.entry-title {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    padding-top: 30px;
+    background-color: #E9E9ED;
+    border-bottom: solid #D8D8D8;
+}
+
 .entry {
     display: flex;
     justify-content: space-between;
@@ -41,7 +50,6 @@
 }
 
 .entry-button:hover {
-    /* Hover effect */
     background-color: rgba(0, 0, 0, 0.05);
 }
 
@@ -79,6 +87,11 @@
 
 .dark.entry-list-heading {
     color: #dfdfdf;
+}
+
+.dark.entry-title {
+    background-color: #0D1117;
+    color: #ffffff;
 }
 
 .dark.entry-button {

@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { saveToStorage } from "utils/saveToStorage";
 
 export interface MarkdownContextType {
     markdown: string;
@@ -40,7 +41,7 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
         const lastSaved = Date.now() - lastSaveTime;
         if (lastSaved < TwoMinInMS) return;
 
-        localStorage.setItem(`Entry: ${filename}`, newMarkdown);
+        saveToStorage({ filename, markdown: newMarkdown });
         setLastSaveTime(lastSaved);
     };
 
