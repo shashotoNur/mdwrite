@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import AceEditor from "react-ace";
-import { saveAs } from "file-saver";
 
 import "ace-builds/src-noconflict/mode-markdown";
 import "ace-builds/src-noconflict/theme-github";
@@ -15,8 +14,13 @@ import { EditorContext } from "context/editor";
 import { handleKeyDown } from "utils/keyPress";
 
 import "components/Editor/styles.css";
+import { exportMarkdown } from "utils/exportMarkdown";
 
-const Editor = () => {
+const Editor = ({
+    toggleListVisibility,
+}: {
+    toggleListVisibility: () => void;
+}) => {
     const editorRef = React.createRef<AceEditor>();
     const themeContext = useContext(ThemeContext);
     const { filename, markdown, handleChange, filenameChange } =
@@ -29,25 +33,17 @@ const Editor = () => {
     }, [editorRef, changeEditor]);
 
     useEffect(() => {
-        document.addEventListener("keydown", (event) => {
+        const keyDownListener = (event: KeyboardEvent) => {
             if (!editor) return;
             handleKeyDown({ event, editor, filename, markdown });
-        });
-        return () => {
-            document.removeEventListener("keydown", (event) => {
-                if (!editor) return;
-                handleKeyDown({ event, editor, filename, markdown });
-            });
         };
+
+        document.addEventListener("keydown", keyDownListener);
+        return () => document.removeEventListener("keydown", keyDownListener);
     }, [editor, filename, markdown]);
 
     if (!themeContext) return <div>Error: Theme context is null</div>;
     const { theme } = themeContext;
-
-    const handleExport = () => {
-        const blob = new Blob([markdown], { type: "text/markdown" });
-        saveAs(blob, `${filename}.md`);
-    };
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!event.target.files) return;
@@ -67,7 +63,7 @@ const Editor = () => {
 
     return (
         <div className={`editor-sidebar ${theme}`}>
-            <Toolbar />
+            <Toolbar toggleListVisibility={toggleListVisibility} />
 
             <div className={`file-input-group ${theme}`}>
                 <label htmlFor="filename-input">
@@ -83,7 +79,10 @@ const Editor = () => {
                     <input type="file" onChange={handleFileChange} />
                     Import
                 </label>
-                <label className={`btn ${theme}`} onClick={handleExport}>
+                <label
+                    className={`btn ${theme}`}
+                    onClick={() => exportMarkdown({ filename, markdown })}
+                >
                     Export
                 </label>
             </div>

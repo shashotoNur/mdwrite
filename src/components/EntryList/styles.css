@@ -1,40 +1,76 @@
 .entry-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem; /* Adjust spacing between entries */
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white backdrop */
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Center the list */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y: scroll;
+    max-height: 80vh;
+    width: 40rem;
+    z-index: 1;
 }
 
-/* In entryList.css */
 .entry-list-heading {
-  margin-bottom: 1rem; /* Create spacing below the heading */
-  font-size: 1.25rem;
-  font-weight: 600;
-  text-align: center;
-  color: #333;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    color: #333;
 }
 
-
-.entry-list button {
-  padding: 0.5rem 1rem;
-  text-align: left;
-  font-family: sans-serif;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out; /* Smooth transitions */
+.entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
 }
 
-.entry-list button:hover {
-  /* Hover effect */
-  background-color: rgba(0, 0, 0, 0.05);
+.entry-button {
+    padding: 0.5rem 1rem;
+    text-align: left;
+    border: none;
+    cursor: pointer;
+    height: 50px;
+    flex-grow: 1; /* Allow entry name button to expand */
+    flex-shrink: 0;
+}
+
+.entry-button:hover {
+    /* Hover effect */
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.export-button {
+    padding: 0.5rem 1rem;
+    text-align: left;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    background-color: #282A36;
+    color: #ffffff;
+}
+
+.export-button:hover {
+    background-color: #0D1117;
+}
+
+.delete-button {
+    padding: 0.5rem 1rem;
+    text-align: left;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    background-color: #da3633;
+    color: #ffffff;
+}
+
+.delete-button:hover {
+    background-color: #EB0014;
 }
 
 .dark.entry-list {
@@ -45,11 +81,18 @@
     color: #dfdfdf;
 }
 
-.dark.entry-list button {
+.dark.entry-button {
     background-color: #44475a; /* Darker button background color */
-    color: #E6EDF3;
+    color: #e6edf3;
 }
 
-.dark.entry-list button:hover {
+.dark.entry-button:hover {
     background-color: #545862;
+}
+
+@media (max-width: 768px) {
+    /* Adjust breakpoint as needed */
+    .entry-list {
+        width: 80%;
+    }
 }

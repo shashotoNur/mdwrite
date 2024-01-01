@@ -70,9 +70,7 @@
     margin-bottom: 0.05%;
     padding-bottom: 0.5%;
     min-height: 60vh;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    /* ... other AceEditor styling */
+    border: 0.25px solid #ccc;
 }
 
 /* Add a class for the dark theme */

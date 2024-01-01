@@ -11,5 +11,5 @@ __Features__:
 - [x] **Responsive Design:** Ensure the editor works well on different devices and screen sizes.
 - [x] **Search and Replace:** Include a search and replace functionality.
 - [x] **Themes:** Offer light and dark theme for the editor to cater to users' preferences.
-- [ ] **Autosave:** Implement autosave functionality to prevent users from losing their work.
-- [ ] **Version History (Optional):** Keep a history of the previous versions of the document.
+- [x] **Autosave:** Implement autosave functionality to prevent users from losing their work.
+- [ ] **Version History:** Keep a history of the previous versions of the document.

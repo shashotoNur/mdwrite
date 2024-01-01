@@ -9,8 +9,13 @@ import {
 } from "components/Toolbar/Tools";
 
 import "components/Toolbar/styles.css";
+import { MarkdownContext } from "context/markdown";
 
-const Toolbar = () => {
+const Toolbar = ({
+    toggleListVisibility,
+}: {
+    toggleListVisibility: () => void;
+}) => {
     const [showInsertModal, setShowInsertModal] = useState(false);
     const [insertType, setInsertType] = useState("link"); // Default to "Link"
     const [hideToolbar, setHideToolbar] = useState(true);
@@ -19,6 +24,7 @@ const Toolbar = () => {
     const [hideSearch, setHideSearch] = useState(true);
     const themeContext = useContext(ThemeContext);
     const { editor } = useContext(EditorContext)!;
+    const { autosave, toggleAutosave } = useContext(MarkdownContext)!;
 
     if (!themeContext) return <div>Error: Theme context is null</div>;
     const { theme, toggleTheme } = themeContext;
@@ -77,6 +83,18 @@ const Toolbar = () => {
         <div className={`toolbar ${theme}`}>
             <button className={`toolbar-button ${theme}`} onClick={toggleTheme}>
                 <i>{theme === "light" ? "Day" : "Night"}</i>
+            </button>
+            <button
+                className={`toolbar-button ${theme}`}
+                onClick={toggleListVisibility}
+            >
+                <i>Saved</i>
+            </button>
+            <button
+                className={`toolbar-button ${theme}`}
+                onClick={toggleAutosave}
+            >
+                <i>Save: {autosave === "true" ? "On" : "Off"}</i>
             </button>
             <button
                 className={`toolbar-button ${theme}`}

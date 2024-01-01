@@ -17,18 +17,6 @@ body {
     flex: 1; /* Ensure both nested components take up equal width */
 }
 
-.entry-list {
-  position: absolute; /* Position relative to the parent */
-  top: 0;
-  left: 0;
-  width: 40%;
-  height: 70%;
-  display: flex; /* Center content vertically and horizontally */
-  align-items: center;
-  justify-content: center;
-  z-index: 1; /* Ensure it's above the editor and preview */
-}
-
 @media (max-width: 768px) {
     /* Adjust breakpoint as needed */
     .app-container {

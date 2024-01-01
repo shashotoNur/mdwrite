@@ -24,7 +24,7 @@ const App = () => {
                         <EntryList closeList={toggleListVisibility} />
                     )}
                     <div className="app-container">
-                        <Editor />
+                        <Editor toggleListVisibility={toggleListVisibility} />
                         <Preview />
                     </div>
                 </EditorProvider>
