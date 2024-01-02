@@ -88,7 +88,7 @@ const Toolbar = ({
                 className={`toolbar-button ${theme}`}
                 onClick={toggleListVisibility}
             >
-                <i>Saved</i>
+                <i>Entries</i>
             </button>
             <button
                 className={`toolbar-button ${theme}`}

@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import { saveToStorage } from "utils/saveToStorage";
 
 export interface MarkdownContextType {
     markdown: string;
@@ -10,6 +9,7 @@ export interface MarkdownContextType {
     handleChange: (newMarkdown: string) => void;
     filenameChange: (newFilename: string) => void;
     toggleAutosave: () => void;
+    timestampChange: (date: Date) => void;
 }
 
 export const MarkdownContext = createContext<MarkdownContextType | null>(null);
@@ -20,14 +20,13 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
     const [markdown, setMarkdown] = useState("");
     const [filename, setFilename] = useState("untitled");
-    const [autosave, setAutosave] = useState(
-        localStorage.getItem("autosave") ?? "false"
-    );
+    const [timestamp, setTimestamp] = useState(new Date());
+    const [autosave, setAutosave] = useState("false");
     const [wordCount, setWordCount] = useState(0);
     const [charCount, setCharCount] = useState(0);
     const [lastSaveTime, setLastSaveTime] = useState(0);
 
-    const TwoMinInMS = 2 * 60 * 1000;
+    const TwoMinInMS = 10 * 1000;
 
     const handleChange = (newMarkdown: string) => {
         setMarkdown(newMarkdown);
@@ -38,21 +37,39 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
 
         if (autosave === "false") return;
 
+        const dateNow = new Date();
         const lastSaved = Date.now() - lastSaveTime;
+
         if (lastSaved < TwoMinInMS) return;
 
-        saveToStorage({ filename, markdown: newMarkdown });
-        setLastSaveTime(lastSaved);
+        const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+        const initialTimestamp = timestamp.toLocaleString("en-US", {
+            timeZone,
+        });
+        const newTimestamp = dateNow.toLocaleString("en-US", {
+            timeZone,
+        });
+        const initialEntryKey = `Entry: ${filename} - ${initialTimestamp}`;
+        const newEntryKey = `Entry: ${filename} - ${newTimestamp}`;
+
+        localStorage.setItem(newEntryKey, newMarkdown);
+        localStorage.removeItem(initialEntryKey);
+        setLastSaveTime(Date.now());
+        setTimestamp(dateNow);
     };
 
     const filenameChange = (newFilename: string) => {
         setFilename(newFilename);
+        toggleAutosave();
+    };
+
+    const timestampChange = (date: Date) => {
+        setTimestamp(date);
     };
 
     const toggleAutosave = () => {
         const toggledValue = autosave === "true" ? "false" : "true";
         setAutosave(toggledValue);
-        localStorage.setItem("autosave", toggledValue);
     };
 
     return (
@@ -66,6 +83,7 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
                 handleChange,
                 filenameChange,
                 toggleAutosave,
+                timestampChange,
             }}
         >
             {children}

@@ -1,5 +1,18 @@
 import { IAceEditor } from "react-ace/lib/types";
-import { saveToStorage } from "./saveToStorage";
+
+interface saveProps {
+    filename: string;
+    markdown: string;
+}
+
+const saveToStorage = ({ filename, markdown }: saveProps) => {
+    const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+    const formattedDate = new Date().toLocaleString("en-US", {
+        timeZone,
+    });
+    const entryKey = `Entry: ${filename} - ${formattedDate}`;
+    localStorage.setItem(entryKey, markdown);
+};
 
 interface KeyDownProps {
     event: KeyboardEvent;
@@ -15,15 +28,19 @@ export const handleKeyDown = ({
     markdown,
 }: KeyDownProps) => {
     if (!event.ctrlKey) return;
-    if (event.key === "b" || event.key === "B") {
-        event.preventDefault();
-        insertDoubleSymbol("__", editor);
-    } else if (event.key === "i" || event.key === "I") {
-        event.preventDefault();
-        insertDoubleSymbol("_", editor);
-    } else if (event.key === "s" || event.key === "S") {
-        event.preventDefault();
-        saveToStorage({ filename, markdown });
+    switch (event.key.toLowerCase()) {
+        case "b":
+            event.preventDefault();
+            insertDoubleSymbol("__", editor);
+            break;
+        case "i":
+            event.preventDefault();
+            insertDoubleSymbol("_", editor);
+            break;
+        case "s":
+            event.preventDefault();
+            saveToStorage({ filename, markdown });
+            break;
     }
 };
 

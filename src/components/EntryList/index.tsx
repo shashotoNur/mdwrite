@@ -4,25 +4,22 @@ import { useState, useEffect, useContext } from "react";
 import "components/EntryList/styles.css";
 import { ThemeContext } from "context/theme";
 import { exportMarkdown } from "utils/exportMarkdown";
+import { getReadableTime } from "utils/getReadableTime";
 
 interface Entry {
     filename: string;
     markdown: string;
-    timestamp:string;
+    timestamp: Date;
 }
 
 interface GroupedEntry {
     entryName: string;
-    entries: {
-        filename: string;
-        markdown: string;
-        timestamp: string;
-    }[];
+    entries: Entry[];
 }
 
 const EntryList = ({ closeList }: { closeList: () => void }) => {
     const [groupedEntries, setGroupedEntries] = useState<GroupedEntry[]>([]);
-    const { handleChange, filenameChange } = useContext(MarkdownContext)!;
+    const { handleChange, filenameChange, timestampChange } = useContext(MarkdownContext)!;
     const { theme } = useContext(ThemeContext)!;
 
     useEffect(() => {
@@ -31,69 +28,47 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
             .map(([key, value]: [key: string, value: string]) => ({
                 filename: key.replace("Entry: ", "").split(" - ")[0],
                 markdown: value,
-                timestamp: key.replace("Entry: ", "").split(" - ")[1],
+                timestamp: new Date(key.replace("Entry: ", "").split(" - ")[1]),
             }));
 
-        const groupedEntries = Object.entries(
-            storedEntries.reduce<
-                Record<
-                    string,
-                    Entry[]
-                >
-            >((acc, { filename, markdown, timestamp }) => {
+        const groupedEntries = Object.values(
+            storedEntries.reduce((acc, { filename, markdown, timestamp }) => {
                 if (!acc[filename]) acc[filename] = [];
                 acc[filename].push({ filename, markdown, timestamp });
                 return acc;
             }, {} as Record<string, Entry[]>)
-        ).map(([entryName, entries]) => ({ entryName, entries }));
+        ).map((entries) => {
+            entries.sort(
+                (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
+            );
+            return {
+                entryName: entries[0].filename,
+                entries,
+            };
+        });
+
+        groupedEntries.sort(
+            (a, b) =>
+                b.entries[0].timestamp.getTime() -
+                a.entries[0].timestamp.getTime()
+        );
 
         setGroupedEntries(groupedEntries);
     }, [closeList]);
 
-    const getTimestamp = (item: string) => {
-        const months = [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-        ];
-
-        const dateTimeString = item;
-        const dateObject = new Date(dateTimeString); // Convert string to Date object
-
-        const date = dateObject.getDate();
-        const month = months[dateObject.getMonth()];
-        const year = dateObject.getFullYear();
-
-        const formattedDate = `${date} ${month}, ${year}`;
-
-        const hours = dateObject.getHours();
-        const minutes = dateObject.getMinutes();
-        const meridian = hours >= 12 ? "PM" : "AM";
-
-        const formattedTime = `${hours % 12 || 12}:${minutes
-            .toString()
-            .padStart(2, "0")} ${meridian}`; // Example output: "9:01 AM"
-
-        return `${formattedTime} - ${formattedDate}`;
-    };
-
     const openEntry = (entry: Entry) => {
         filenameChange(entry.filename);
         handleChange(entry.markdown);
+        timestampChange(entry.timestamp);
         closeList();
     };
 
     const deleteEntry = (target: Entry) => {
-        localStorage.removeItem(`Entry: ${target.filename} - ${target.timestamp}`);
+        const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+        const formattedDate = target.timestamp.toLocaleString("en-US", {
+            timeZone,
+        });
+        localStorage.removeItem(`Entry: ${target.filename} - ${formattedDate}`);
 
         const newEntries = groupedEntries.map((entry) => {
             if (entry.entryName === target.filename) {
@@ -106,6 +81,7 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
             }
             return entry;
         });
+        console.log(newEntries)
 
         setGroupedEntries(newEntries);
     };
@@ -120,49 +96,56 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
                     openEntry({
                         filename: "untitled",
                         markdown: "",
-                        timestamp: "",
+                        timestamp: new Date(),
                     })
                 }
             >
                 New Entry
             </button>
-            {groupedEntries.map((entry) => (
-                <div key={entry.entryName}>
-                    <div className={`entry-title ${theme}`}>
-                        {entry.entryName.length > 50
-                            ? entry.entryName.substring(0, 70) + "..."
-                            : entry.entryName}
-                    </div>
-                    {entry.entries.map((entry) => (
-                        <div className="entry" key={entry.timestamp}>
-                            <br />
-                            <button
-                                className={`entry-button ${theme}`}
-                                onClick={() => openEntry(entry)}
-                            >
-                                {getTimestamp(entry.timestamp)}
-                            </button>
-                            <button
-                                className={`export-button ${theme}`}
-                                onClick={() =>
-                                    exportMarkdown({
-                                        filename: entry.filename,
-                                        markdown: entry.markdown,
-                                    })
-                                }
-                            >
-                                Export
-                            </button>
-                            <button
-                                className="delete-button"
-                                onClick={() => deleteEntry(entry)}
-                            >
-                                Delete
-                            </button>
+            {groupedEntries.length == 0 ? (
+                <div className={`entry-title ${theme}`}>No entry</div>
+            ) : (
+                groupedEntries.map((entry) => entry.entries.length > 0 && (
+                    <div key={entry.entryName}>
+                        <div className={`entry-title ${theme}`}>
+                            {entry.entryName.length > 50
+                                ? entry.entryName.substring(0, 70) + "..."
+                                : entry.entryName}
                         </div>
-                    ))}
-                </div>
-            ))}
+                        {entry.entries.map((entry) => (
+                            <div
+                                className="entry"
+                                key={entry.timestamp.toString()}
+                            >
+                                <br />
+                                <button
+                                    className={`entry-button ${theme}`}
+                                    onClick={() => openEntry(entry)}
+                                >
+                                    {getReadableTime(entry.timestamp)}
+                                </button>
+                                <button
+                                    className={`export-button ${theme}`}
+                                    onClick={() =>
+                                        exportMarkdown({
+                                            filename: entry.filename,
+                                            markdown: entry.markdown,
+                                        })
+                                    }
+                                >
+                                    Export
+                                </button>
+                                <button
+                                    className="delete-button"
+                                    onClick={() => deleteEntry(entry)}
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                ))
+            )}
         </div>
     );
 };

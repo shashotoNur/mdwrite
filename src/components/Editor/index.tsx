@@ -23,7 +23,7 @@ const Editor = ({
 }) => {
     const editorRef = React.createRef<AceEditor>();
     const themeContext = useContext(ThemeContext);
-    const { filename, markdown, handleChange, filenameChange } =
+    const { filename, markdown, handleChange, filenameChange, timestampChange } =
         useContext(MarkdownContext)!;
     const { editor, changeEditor } = useContext(EditorContext)!;
 
@@ -50,12 +50,13 @@ const Editor = ({
         const file = event.target.files[0];
 
         const reader = new FileReader();
-        reader.onload = (e) => {
-            if (!e.target) return;
-            const markdown = e.target.result;
+        reader.onload = (event) => {
+            if (!event.target) return;
+            const markdown = event.target.result;
             if (typeof markdown === "string") {
                 handleChange(markdown);
                 filenameChange(file.name.replace(".md", ""));
+                timestampChange(new Date());
             }
         };
         reader.readAsText(file);

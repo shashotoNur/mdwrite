@@ -6,7 +6,6 @@ import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw"; // Crucial for HTML tag preservation
 import rehypeStringify from "rehype-stringify";
-import rehypeHighlight from "rehype-highlight";
 import emoji from "remark-emoji";
 
 import { ThemeContext } from "context/theme";
@@ -34,7 +33,6 @@ const Preview = () => {
             <div className={`preview-content ${theme}`}>
                 <ReactMarkdown
                     rehypePlugins={[
-                        rehypeHighlight,
                         rehypeRaw,
                         rehypeStringify,
                     ]}
