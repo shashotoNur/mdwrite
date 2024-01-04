@@ -9,7 +9,7 @@
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview --host --port 6969",
         "latest": "npm run build && npm run preview",
-        "deploy" : "gh-pages -d build"
+        "deploy": "gh-pages -d build"
     },
     "dependencies": {
         "ace-builds": "^1.32.3",
@@ -37,6 +37,7 @@
         "gh-pages": "^6.1.1",
         "typescript": "^5.2.2",
         "vite": "^5.0.8",
+        "vite-plugin-pwa": "^0.17.4",
         "vite-tsconfig-paths": "^4.2.3"
     }
 }

@@ -3,13 +3,17 @@ import { createContext, useState } from "react";
 export interface MarkdownContextType {
     markdown: string;
     filename: string;
+    timestamp: Date;
     wordCount: number;
     charCount: number;
     autosave: string;
+    toVersion: boolean;
     handleChange: (newMarkdown: string) => void;
     filenameChange: (newFilename: string) => void;
     toggleAutosave: () => void;
     timestampChange: (date: Date) => void;
+    toggleToVersion: () => void;
+    saveToStorage: () => void;
 }
 
 export const MarkdownContext = createContext<MarkdownContextType | null>(null);
@@ -22,6 +26,7 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
     const [filename, setFilename] = useState("untitled");
     const [timestamp, setTimestamp] = useState(new Date());
     const [autosave, setAutosave] = useState("false");
+    const [toVersion, setToVersion] = useState(false);
     const [wordCount, setWordCount] = useState(0);
     const [charCount, setCharCount] = useState(0);
     const [lastSaveTime, setLastSaveTime] = useState(0);
@@ -72,18 +77,43 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
         setAutosave(toggledValue);
     };
 
+    const toggleToVersion = () => {
+        setToVersion(!toVersion);
+    };
+
+    const saveToStorage = () => {
+        const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+        const now = new Date();
+        const formattedDate = now.toLocaleString("en-US", {
+            timeZone,
+        });
+        const entryKey = `Entry: ${filename} - ${formattedDate}`;
+        localStorage.setItem(entryKey, markdown);
+
+        if (toVersion) return;
+        const oldDate = timestamp.toLocaleString("en-US", {
+            timeZone,
+        });
+        setTimestamp(now);
+        localStorage.removeItem(`Entry: ${filename} - ${oldDate}`);
+    };
+
     return (
         <MarkdownContext.Provider
             value={{
                 filename,
                 markdown,
+                timestamp,
                 wordCount,
                 charCount,
                 autosave,
+                toVersion,
                 handleChange,
                 filenameChange,
                 toggleAutosave,
                 timestampChange,
+                toggleToVersion,
+                saveToStorage,
             }}
         >
             {children}

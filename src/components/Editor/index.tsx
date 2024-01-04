@@ -23,8 +23,17 @@ const Editor = ({
 }) => {
     const editorRef = React.createRef<AceEditor>();
     const themeContext = useContext(ThemeContext);
-    const { filename, markdown, handleChange, filenameChange, timestampChange } =
-        useContext(MarkdownContext)!;
+    const {
+        filename,
+        markdown,
+        timestamp,
+        toVersion,
+        handleChange,
+        filenameChange,
+        timestampChange,
+        toggleToVersion,
+        saveToStorage,
+    } = useContext(MarkdownContext)!;
     const { editor, changeEditor } = useContext(EditorContext)!;
 
     useEffect(() => {
@@ -33,14 +42,14 @@ const Editor = ({
     }, [editorRef, changeEditor]);
 
     useEffect(() => {
-        const keyDownListener = (event: KeyboardEvent) => {
+        const keyDownListener = (e: KeyboardEvent) => {
             if (!editor) return;
-            handleKeyDown({ event, editor, filename, markdown });
+            handleKeyDown({ event: e, editor, saveToStorage });
         };
 
         document.addEventListener("keydown", keyDownListener);
         return () => document.removeEventListener("keydown", keyDownListener);
-    }, [editor, filename, markdown]);
+    }, [editor, filename, markdown, saveToStorage, timestamp, toVersion]);
 
     if (!themeContext) return <div>Error: Theme context is null</div>;
     const { theme } = themeContext;
@@ -71,6 +80,7 @@ const Editor = ({
                     <input
                         type="text"
                         className={`filename-input ${theme}`}
+                        name="filename-input"
                         value={filename}
                         onChange={(e) => filenameChange(e.target.value)}
                     />
@@ -86,6 +96,9 @@ const Editor = ({
                 >
                     Export
                 </label>
+                <button className={`btn ${theme}`} onClick={toggleToVersion}>
+                    Versioning: {toVersion ? "On" : "Off"}
+                </button>
             </div>
 
             <AceEditor

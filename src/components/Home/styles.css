@@ -1,0 +1,123 @@
+.homepage-container {
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #E8E8E8;
+}
+
+.homepage-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    max-width: 75px;
+    max-height: 75px;
+    transform: scale(0.9);
+}
+
+.logo:hover {
+    cursor: pointer;
+    transform: scale(1);
+}
+
+.features {
+    margin: 2rem 0;
+    padding-left: 5px;
+}
+
+.features li::before {
+    content: "✓";
+    margin-right: 0.5rem;
+    font-size: 16px;
+}
+
+.usage-guide {
+    margin: 2rem 0;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+@media only screen and (max-width: 768px) {
+    .homepage-container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .features li::before {
+        font-size: 14px;
+    }
+}
+
+.close-home-button {
+    /* Position and styling for the button */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 7.5px;
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    /* Font and text styles */
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+
+    /* Transition effect */
+    transition: background-color 0.2s ease-in-out;
+}
+
+.close-home-button:hover {
+    /* Highlight effect on hover */
+    background-color: #e0e0e0;
+}
+
+/* Base styles for dark mode */
+.homepage-container.dark,
+.homepage-header.dark,
+.homepage-main.dark,
+.features.dark,
+.usage-guide.dark {
+    background-color: #0d1117; /* Dark background */
+    color: #fff; /* Light text color */
+}
+
+.close-home-button.dark {
+    background-color: #44475a; /* Dark background */
+    color: #fff; /* Light text color */
+}
+
+/* Specific element adjustments */
+.homepage-header.dark h1,
+.homepage-header.dark p {
+    color: #ddd; /* Slightly lighter text for header */
+}
+
+.homepage-main.dark hr {
+    border-color: #444; /* Darker border for separator */
+}
+
+.usage-guide.dark li::before {
+    color: #ccc; /* Lighter bullet point color */
+}
+
+.close-home-button.dark:hover {
+    background-color: #333; /* Darker hover effect */
+}
+
+/* Link styles for dark mode */
+.dark a {
+    color: #ccc; /* Lighter link color */
+}
+
+.dark a:hover {
+    color: #fff; /* Brighter link color on hover */
+}

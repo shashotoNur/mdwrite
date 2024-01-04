@@ -1,31 +1,14 @@
 import { IAceEditor } from "react-ace/lib/types";
-
-interface saveProps {
-    filename: string;
-    markdown: string;
-}
-
-const saveToStorage = ({ filename, markdown }: saveProps) => {
-    const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
-    const formattedDate = new Date().toLocaleString("en-US", {
-        timeZone,
-    });
-    const entryKey = `Entry: ${filename} - ${formattedDate}`;
-    localStorage.setItem(entryKey, markdown);
-};
-
 interface KeyDownProps {
     event: KeyboardEvent;
     editor: IAceEditor;
-    filename: string;
-    markdown: string;
+    saveToStorage: () => void;
 }
 
 export const handleKeyDown = ({
     event,
     editor,
-    filename,
-    markdown,
+    saveToStorage,
 }: KeyDownProps) => {
     if (!event.ctrlKey) return;
     switch (event.key.toLowerCase()) {
@@ -39,7 +22,7 @@ export const handleKeyDown = ({
             break;
         case "s":
             event.preventDefault();
-            saveToStorage({ filename, markdown });
+            saveToStorage();
             break;
     }
 };

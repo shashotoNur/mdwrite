@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Noto Serif Ahom
+- Font Author: Copyright 2022 The Noto Project Authors (https://github.com/notofonts/ahom)
+- Font Source: http://fonts.gstatic.com/s/notoserifahom/v20/FeVIS0hfp6cprmEUffAW_fUL_AN-wuYrPFiwaw.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))

@@ -81,7 +81,6 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
             }
             return entry;
         });
-        console.log(newEntries)
 
         setGroupedEntries(newEntries);
     };

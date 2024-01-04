@@ -65,9 +65,18 @@ You can deploy this app to your own github page.
 
 ## Usage Guide
 
-* Demonstrate how to use the project's main features.
-* Provide code examples, screenshots, or GIFs to visualize usage.
-* Offer guidance on common use cases or workflows.
+* The editor offers a live preview of your markdown code on the side panel with support for html tags as well as markdown emojis.
+* By default the theme of the editor is light, which can be changed by clicking the "Day" button.
+* On load, the editor shows the entries (markdown documents) saved inside the browser. The Entries list can be displayed/hidden by clicking on the "Entries" button.
+* By default autosave is turned off but it can be activated using the "Save" button, which shows whether autosave is activated or not.
+* The editor has a tool bar, featuring basic tools useful in writing markdown, that can be opened by clicking on the "tools" button.
+* The editor also features four keyboard shortcuts:
+  1. Ctrl+b for writing bold texts
+  2. Ctrl+i for writing in italics
+  3. Ctrl+f for finding texts within the active entry
+  4. Ctrl+s for saving your your entry inside the browser
+* The editor also allows you to import and/or export your entries from/to your filesystem.
+* The editor can also version your files inside the browser. Note that, entries saved due to autosave shall not preserve any any versions. Versioning is only available for saves by Ctrl+s.
 
 * **Demo:** You can view a live demo here as a [Github Page](https://shashotoNur.github.io/mdwrite/).
 
