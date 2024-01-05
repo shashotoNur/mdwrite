@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('https://shashotonur.github.io/mdwrite/sw.js', { scope: 'https://shashotonur.github.io/mdwrite/' })})}
