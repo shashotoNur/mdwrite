@@ -3,7 +3,7 @@
 }
 
 .preview-pane pre {
-    background-color: #e5e5e57e;
+    background-color: rgba(229, 229, 229, 0.49);
     padding: 0.75rem;
     border-radius: 2px;
 }
@@ -39,7 +39,7 @@
 
 .preview-pane th,
 .preview-pane td {
-    border-right: 1px solid #eee; /* Adjust color as needed */
+    border-right: 1px solid #eee;
 }
 
 .preview-pane tr:nth-child(even) {
@@ -66,16 +66,16 @@
 
 .preview-info div {
     font-size: 14px;
-    color: #999;
+    color: var(--text-color-light);
 }
 
 .preview-content {
-    overflow-y: scroll; /* Enable scrolling for longer content */
+    overflow-y: scroll;
     overflow-x: scroll;
-    max-height: 97%; /* Adjust this value based on your needs */
+    max-height: 97%;
 }
 
-/* Styles for ReactMarkdown content (adjust as needed) */
+/* Styles for ReactMarkdown content */
 .preview-content h1,
 .preview-content h2,
 .preview-content h3,
@@ -93,59 +93,45 @@
 
 /* Dark theme styles */
 .dark.preview-pane * {
-    color: #e6edf3; /* All text color*/
+    color: var(--text-dark);
 }
 
 .dark.preview-pane pre {
-    background-color: #44475a;
+    background-color: var(--background-dark);
 }
 
-.dark.preview-pane blockquote {
-    background-color: #44475a;
-}
-
+.dark.preview-pane blockquote,
 .dark.preview-pane table {
-    border: 1px solid #44475a;
+    background-color: var(--background-dark);
 }
 
 .dark.preview-pane th {
-    padding: 10px;
     background-color: #30363d;
-    border: 1px solid #44475a;
+    border: 1px solid var(--border-dark);
 }
 
 .dark.preview-pane td {
-    padding: 10px;
-    border-bottom: 1px solid #44475a;
+    border-bottom: 1px solid var(--border-dark);
 }
 
-.dark.preview-pane th,
-.dark.preview-pane td {
-    border-right: 1px solid #44475a; /* Adjust color as needed */
-}
-
-.dark.preview-pane tr:hover {
-    background-color: #30363d;
-}
-
+.dark.preview-pane tr:hover,
 .dark.preview-pane tr:nth-child(even) {
     background-color: #30363d;
 }
 
 .dark.preview-pane {
-    background-color: #0d1117; /* Dark input background color */
+    background-color: var(--dark-bg);
 }
 
 .dark.preview-info div {
-    background-color: #0d1117; /* Dark input background color */
+    background-color: var(--dark-bg);
 }
 
 .dark.preview-content {
-    background-color: #0d1117; /* Dark input background color */
+    background-color: var(--dark-bg);
 }
 
 @media (max-width: 768px) {
-    /* Adjust breakpoint as needed */
     .preview-pane {
         max-width: 100%;
     }

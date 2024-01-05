@@ -1,10 +1,11 @@
 import { MarkdownContext } from "context/markdown";
 import { useState, useEffect, useContext } from "react";
 
-import "components/EntryList/styles.css";
 import { ThemeContext } from "context/theme";
 import { exportMarkdown } from "utils/exportMarkdown";
 import { getReadableTime } from "utils/getReadableTime";
+
+import "components/EntryList/styles.css";
 
 interface Entry {
     filename: string;

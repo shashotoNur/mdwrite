@@ -65,7 +65,7 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const filenameChange = (newFilename: string) => {
         setFilename(newFilename);
-        toggleAutosave();
+        setAutosave("false");
     };
 
     const timestampChange = (date: Date) => {

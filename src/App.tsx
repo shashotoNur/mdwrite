@@ -1,6 +1,9 @@
-import { lazy, useState } from "react";
+import { lazy, startTransition, useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
-// const Home = lazy(() => import("components/Home"));
+import ErrorFallback from "components/ErrorFallback";
+import Home from "components/Home";
+
 const EntryList = lazy(() => import("components/EntryList"));
 const Editor = lazy(() => import("components/Editor"));
 const Preview = lazy(() => import("components/Preview"));
@@ -13,33 +16,46 @@ import "./App.css";
 
 const App = () => {
     const [isEntryListVisible, setIsEntryListVisible] = useState(true);
-    // const [showHome, setShowHome] = useState(true);
+    const [showHome, setShowHome] = useState(true);
 
     const toggleListVisibility = () =>
         setIsEntryListVisible(!isEntryListVisible);
 
-    // const closeHome = () => setShowHome(false);
+    const closeHome = () => {
+        startTransition(() => {
+            setShowHome(false);
+        });
+    };
+
 
     return (
-        <ThemeProvider>
-            <MarkdownProvider>
-                <EditorProvider>
-                    {(
-                        <>
-                            {isEntryListVisible && (
-                                <EntryList closeList={toggleListVisibility} />
-                            )}
-                            <div className="app-container">
-                                <Editor
-                                    toggleListVisibility={toggleListVisibility}
-                                />
-                                <Preview />
-                            </div>
-                        </>
-                    )}
-                </EditorProvider>
-            </MarkdownProvider>
-        </ThemeProvider>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <ThemeProvider>
+                <MarkdownProvider>
+                    <EditorProvider>
+                        {showHome ? (
+                            <Home closeHome={closeHome} />
+                        ) : (
+                            <>
+                                {isEntryListVisible && (
+                                    <EntryList
+                                        closeList={toggleListVisibility}
+                                    />
+                                )}
+                                <div className="app-container">
+                                    <Editor
+                                        toggleListVisibility={
+                                            toggleListVisibility
+                                        }
+                                    />
+                                    <Preview />
+                                </div>
+                            </>
+                        )}
+                    </EditorProvider>
+                </MarkdownProvider>
+            </ThemeProvider>
+        </ErrorBoundary>
     );
 };
 

@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { ThemeContext } from "context/theme";
 
-import "./styles.css";
+import "components/Home/styles.css";
 
 const Home = ({ closeHome }: { closeHome: () => void }) => {
     const { theme } = useContext(ThemeContext)!;
@@ -15,7 +15,7 @@ const Home = ({ closeHome }: { closeHome: () => void }) => {
                     height={75}
                     width={75}
                     className="logo"
-                    src="/icons/android-chrome-192x192.png"
+                    src="icons/android-chrome-192x192.png"
                     alt="mdWrite Logo"
                     onClick={closeHome}
                 />
@@ -63,7 +63,7 @@ const Home = ({ closeHome }: { closeHome: () => void }) => {
                             <ul>
                                 <li>
                                     Choose between light or dark theme by
-                                    clicking the &quot;Day&quot; button.
+                                    clicking the &quot;Dawn&quot; button.
                                 </li>
                             </ul>
                         </li>

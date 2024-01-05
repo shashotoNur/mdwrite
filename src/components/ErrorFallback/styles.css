@@ -1,0 +1,22 @@
+.error-boundary {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #f00;
+    border-radius: 5px;
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+.error-boundary h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+}
+
+.error-boundary pre {
+    margin-top: 10px;
+    font-family: monospace;
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}

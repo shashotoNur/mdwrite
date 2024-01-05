@@ -1,15 +1,16 @@
 import { useContext, useState } from "react";
 
-import { ThemeContext } from "context/theme";
-import { EditorContext } from "context/editor";
 import {
     DoubleSymbolTools,
     SingleSymbolTools,
     InsertModal,
 } from "components/Toolbar/Tools";
 
-import "components/Toolbar/styles.css";
+import { ThemeContext } from "context/theme";
+import { EditorContext } from "context/editor";
 import { MarkdownContext } from "context/markdown";
+
+import "components/Toolbar/styles.css";
 
 const Toolbar = ({
     toggleListVisibility,
@@ -82,7 +83,7 @@ const Toolbar = ({
     return (
         <div className={`toolbar ${theme}`}>
             <button className={`toolbar-button ${theme}`} onClick={toggleTheme}>
-                <i>{theme === "light" ? "Day" : "Night"}</i>
+                <i>{theme === "light" ? "Dawn" : "Dusk"}</i>
             </button>
             <button
                 className={`toolbar-button ${theme}`}

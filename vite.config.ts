@@ -7,6 +7,8 @@ const userOptions: Partial<VitePWAOptions> = {
     manifest: {
         name: "mdWrite",
         short_name: "mW",
+        description: "A web-based markdown editor",
+        categories: ["Development", "Education", "Office"],
         theme_color: "#ffffff",
         display: "standalone",
         background_color: "#ffffff",
@@ -62,4 +64,5 @@ export default defineConfig({
         outDir: "./build",
         sourcemap: true,
     },
+    base: "https://shashotonur.github.io/mdwrite/",
 });

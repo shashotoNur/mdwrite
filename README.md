@@ -10,21 +10,25 @@ A web-based markdown editor
 - [mdWrite](#mdwrite)
   - [Table of Contents](#table-of-contents)
   - [About](#about)
+  - [](#)
   - [Features](#features)
   - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
     - [Useful Scripts](#useful-scripts)
   - [Usage Guide](#usage-guide)
-  - [Roadmap](#roadmap)
   - [License](#license)
   - [Contact](#contact)
 
 ## About
 
-This is a web-based markdown editor built with the ace editor. It is capable of showing the live preview of your document and save it right in your browser. A more detailed list of its features is given below.
+![Home](preview/mdWrite_home.png)
+---
+![App](preview/mdWrite_app.png)
 
-It is built for anyone who writes markdown on a regular basis in need of a cross platform editor without needing to install it. All of your files are kept locally. So no need for an internet connection once the editor is loaded.
+Introducing a web-based Markdown editor meticulously crafted to elevate your writing workflow. Built upon the robust foundation of the Ace editor, it seamlessly blends efficiency and versatility to empower your creative process.
+
+Whether you're a seasoned writer, a meticulous note-taker, or simply seeking a streamlined platform for your Markdown endeavors, this exceptional editor is poised to elevate your productivity and creativity. Embrace a seamless writing experience, effortlessly accessible from any device, anytime, anywhere.
 
 ## Features
 
@@ -65,30 +69,30 @@ You can deploy this app to your own github page.
 
 ## Usage Guide
 
-* The editor offers a live preview of your markdown code on the side panel with support for html tags as well as markdown emojis.
-* By default the theme of the editor is light, which can be changed by clicking the "Day" button.
-* On load, the editor shows the entries (markdown documents) saved inside the browser. The Entries list can be displayed/hidden by clicking on the "Entries" button.
-* By default autosave is turned off but it can be activated using the "Save" button, which shows whether autosave is activated or not.
-* The editor has a tool bar, featuring basic tools useful in writing markdown, that can be opened by clicking on the "tools" button.
-* The editor also features four keyboard shortcuts:
-  1. Ctrl+b for writing bold texts
-  2. Ctrl+i for writing in italics
-  3. Ctrl+f for finding texts within the active entry
-  4. Ctrl+s for saving your your entry inside the browser
-* The editor also allows you to import and/or export your entries from/to your filesystem.
-* The editor can also version your files inside the browser. Note that, entries saved due to autosave shall not preserve any any versions. Versioning is only available for saves by Ctrl+s.
+**Key Features:**
 
-* **Demo:** You can view a live demo here as a [Github Page](https://shashotoNur.github.io/mdwrite/).
+- **Live Preview:** Observe a real-time visual representation of your Markdown code alongside the editor, encompassing support for HTML tags and Markdown emojis.
+- **Theme Customization:** Toggle between light and dark themes effortlessly by clicking the designated "Dawn" button.
+- **Entry Management:** Upon launch, the editor presents a list of Markdown documents (entries) stored within the browser. Access or conceal this list using the "Entries" button.
+- **Autosave Functionality:** While disabled by default, the Autosave feature can be activated via the "Save" button, which concurrently indicates its current status.
+- **Toolbar Accessibility:** Unveil a comprehensive toolbar harboring essential Markdown writing tools by engaging the "Tools" button.
+- **Keyboard Shortcuts:** Streamline your workflow with the following shortcuts:
+    - Ctrl+b: Render text in boldface.
+    - Ctrl+i: Italicize text.
+    - Ctrl+f: Initiate text searches within the active entry.
+    - Ctrl+s: Preserve the active entry within the browser.
+- **Import and Export Capabilities:** Effortlessly transfer entries between the editor and your local filesystem for seamless integration.
+- **File Versioning:** Maintain a historical record of file alterations within the browser for enhanced content management. Note that Autosave-induced saves are excluded from versioning; this functionality applies exclusively to saves performed using Ctrl+s.
 
-## Roadmap
+**Additional Notes:**
 
-- Optimize the codebase
-- Create an icon
-- Turn it into an installable web app
+- **Autosave and Versioning:** Entries preserved via Autosave lack version history. To leverage versioning, employ Ctrl+s for manual saving.
+
+- **Demo:** You can start crafting over [here](https://shashotoNur.github.io/mdwrite/).
 
 ## [License](LICENSE)
 
 ## Contact
 
-[<img align="left" alt="email" src="https://img.shields.io/badge/email-8838FF?logo=proton&logoColor=white&style=for-the-badge" />](mailto:shashoto.nur@proton.me?subject=Hey%20there&body=I%20wanted%20to%20say%20hi!)
+[<img align="left" alt="email" src="https://img.shields.io/badge/email-8838FF?logo=proton&logoColor=white&style=for-the-badge" />](mailto:shashoto.nur@proton.me?subject=Wanted%20to%20talk%20about%20mdWrite)
 [<img align="left" alt="telegram" src="https://img.shields.io/badge/telegram-229ED9?logo=telegram&logoColor=white&style=for-the-badge" />](https://t.me/shashoto)

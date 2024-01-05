@@ -7,13 +7,14 @@ import "ace-builds/src-noconflict/theme-dracula";
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/ext-searchbox";
 
+import "components/Editor/styles.css";
 import Toolbar from "components/Toolbar";
+
 import { ThemeContext } from "context/theme";
 import { MarkdownContext } from "context/markdown";
 import { EditorContext } from "context/editor";
 import { handleKeyDown } from "utils/keyPress";
 
-import "components/Editor/styles.css";
 import { exportMarkdown } from "utils/exportMarkdown";
 
 const Editor = ({
