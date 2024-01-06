@@ -39,23 +39,28 @@ a {
     padding: 0.25rem;
 }
 
-.app-container {
+.main {
     margin: 0;
     padding: 0;
     position: relative;
-    display: flex; /* Arrange elements horizontally */
-    width: 100vw; /* Fill the entire viewport height */
+    display: flex;
+    /* Arrange elements horizontally */
+    width: 100vw;
+    /* Fill the entire viewport height */
     min-height: 100vh;
     max-height: 150vh;
 }
 
-.app-container > * {
-    flex: 1; /* Ensure both nested components take up equal width */
+.main > * {
+    flex: 1;
+    /* Ensure both nested components take up equal width */
 }
 
 @media (max-width: 768px) {
+
     /* Adjust breakpoint as needed */
-    .app-container {
-        flex-direction: column; /* Stack elements vertically */
+    .main {
+        flex-direction: column;
+        /* Stack elements vertically */
     }
 }

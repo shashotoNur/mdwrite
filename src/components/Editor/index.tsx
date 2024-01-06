@@ -72,8 +72,22 @@ const Editor = ({
         reader.readAsText(file);
     };
 
+    const undo = () => {
+        if (!editor) return;
+        const { session } = editor;
+        const manager = session.getUndoManager();
+        manager.undo(session);
+    };
+
+    const redo = () => {
+        if (!editor) return;
+        const { session } = editor;
+        const manager = session.getUndoManager();
+        manager.redo(session);
+    };
+
     return (
-        <div className={`editor-sidebar ${theme}`}>
+        <>
             <Toolbar toggleListVisibility={toggleListVisibility} />
 
             <div className={`file-input-group ${theme}`}>
@@ -97,9 +111,20 @@ const Editor = ({
                 >
                     Export
                 </label>
+                <button className={`btn ${theme}`} onClick={saveToStorage}>
+                    Save
+                </button>
                 <button className={`btn ${theme}`} onClick={toggleToVersion}>
                     Versioning: {toVersion ? "On" : "Off"}
                 </button>
+                <div>
+                    <label className={`btn ${theme}`} onClick={undo}>
+                        ↺
+                    </label>
+                    <label className={`btn ${theme}`} onClick={redo}>
+                        ⟳
+                    </label>
+                </div>
             </div>
 
             <AceEditor
@@ -118,7 +143,7 @@ const Editor = ({
                     enableSnippets: true,
                 }}
             />
-        </div>
+        </>
     );
 };
 

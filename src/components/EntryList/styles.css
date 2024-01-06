@@ -58,6 +58,11 @@
     background-color: rgba(0, 0, 0, 0.05);
 }
 
+.new {
+    padding-top: 35px;
+    text-align: center;
+}
+
 .export-button {
     background-color: var(--button-background-export);
     color: #ffffff;
@@ -102,5 +107,7 @@
 @media (max-width: 768px) {
     .entry-list {
         width: 80%;
+        top: 25%;
+        position: fixed;
     }
 }

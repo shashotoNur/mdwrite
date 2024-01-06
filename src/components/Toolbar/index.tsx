@@ -94,8 +94,9 @@ const Toolbar = ({
             <button
                 className={`toolbar-button ${theme}`}
                 onClick={toggleAutosave}
+                title="When activated, the editor will save the active entry every 2 minutes"
             >
-                <i>Save: {autosave === "true" ? "On" : "Off"}</i>
+                <i>{autosave === "true" ? "Auto" : "Not"} Saving</i>
             </button>
             <button
                 className={`toolbar-button ${theme}`}

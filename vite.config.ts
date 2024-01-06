@@ -3,57 +3,61 @@ import react from "@vitejs/plugin-react-swc";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 
+const baseURL = "https://shashotonur.github.io/mdwrite/";
+
 const userOptions: Partial<VitePWAOptions> = {
     manifest: {
         name: "mdWrite",
-        short_name: "mW",
+        short_name: "mdWrite",
         description: "A web-based markdown editor",
+        start_url: baseURL,
+        scope: baseURL,
         categories: ["Development", "Education", "Office"],
-        theme_color: "#ffffff",
+        theme_color: "???",
         display: "standalone",
-        background_color: "#ffffff",
+        // background_color: "#ffffff",
         icons: [
             {
-                src: "/icons/favicon.ico",
+                src: baseURL + "icons/favicon.ico",
+                sizes: "64x64 32x32 24x24 16x16",
                 type: "icon",
-                purpose: "any maskable",
+                purpose: "maskable",
             },
             {
-                src: "/icons/android-chrome-192x192.png",
+                src: baseURL + "icons/android-chrome-192x192.png",
                 sizes: "192x192",
                 type: "image/png",
-                purpose: "any maskable",
+                purpose: "favicon",
             },
             {
-                src: "/icons/android-chrome-512x512.png",
+                src: baseURL + "icons/android-chrome-512x512.png",
                 sizes: "512x512",
                 type: "image/png",
-                purpose: "any maskable",
+                purpose: "favicon",
             },
             {
-                src: "/icons/apple-touch-icon.png",
+                src: baseURL + "icons/apple-touch-icon.png",
                 sizes: "512x512",
                 type: "image/png",
-                purpose: "any maskable",
+                purpose: "apple touch icon",
             },
             {
-                src: "/icons/favicon-16x16.png",
+                src: baseURL + "icons/favicon-16x16.png",
                 sizes: "512x512",
                 type: "image/png",
-                purpose: "any maskable",
             },
             {
-                src: "/icons/favicon-32x32.png",
+                src: baseURL + "icons/favicon-32x32.png",
                 sizes: "512x512",
                 type: "image/png",
-                purpose: "any maskable",
+                purpose: "any",
             },
         ],
     },
     registerType: "autoUpdate",
     injectRegister: "auto",
     workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png}"],
+        globPatterns: ["**/*.{js,css,html,ico,png,txt,webmanifest}"],
     },
 };
 
@@ -64,5 +68,5 @@ export default defineConfig({
         outDir: "./build",
         sourcemap: true,
     },
-    base: "https://shashotonur.github.io/mdwrite/",
+    base: baseURL,
 });

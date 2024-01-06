@@ -21,7 +21,7 @@ const Preview = () => {
     const { theme } = themeContext;
 
     return (
-        <div className={`preview-pane ${theme}`}>
+        <>
             <div className={`preview-info ${theme}`}>
                 <div className={`word-count ${theme}`}>
                     {wordCount} words
@@ -46,7 +46,7 @@ const Preview = () => {
                     {markdown}
                 </ReactMarkdown>
             </div>
-        </div>
+        </>
     );
 };
 

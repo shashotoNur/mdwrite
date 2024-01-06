@@ -89,9 +89,9 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
     return (
         <div className={`entry-list ${theme}`}>
             <h2 className={`entry-list-heading ${theme}`}>Saved Entries</h2>
-            <button
+            <div
                 key="New Entry"
-                className={`entry-button ${theme}`}
+                className={`new entry-button ${theme}`}
                 onClick={() =>
                     openEntry({
                         filename: "untitled",
@@ -101,7 +101,7 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
                 }
             >
                 New Entry
-            </button>
+            </div>
             {groupedEntries.length == 0 ? (
                 <div className={`entry-title ${theme}`}>No entry</div>
             ) : (
