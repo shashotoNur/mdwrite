@@ -66,6 +66,14 @@ export default defineConfig({
     build: {
         outDir: "./build",
         sourcemap: true,
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    ace: ["react-ace"],
+                    plugins: ["react-markdown", "rehype-raw", "remark-emoji"]
+                },
+            },
+        },
     },
     base: baseURL,
 });
