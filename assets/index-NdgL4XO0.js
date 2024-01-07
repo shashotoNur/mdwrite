@@ -1,0 +1,8 @@
+import{_ as o,T as v}from"./index-G1RmKFi7.js";import{j as t}from"./plugins-q0mUWLr-.js";import{r as e}from"./ace-T5rmW5Lp.js";const p=e.lazy(()=>o(()=>import("./index-Los10QWI.js"),__vite__mapDeps([0,1,2,3,4,5]))),x=e.lazy(()=>o(()=>import("./index-AmydUEcr.js"),__vite__mapDeps([6,1,2,3,4,5]))),w=e.lazy(()=>o(()=>import("./index-TJWlWZ24.js"),__vite__mapDeps([7,1,2,3,4]))),R=()=>{const[n,u]=e.useState(!0),[m,_]=e.useState(!1),[i,E]=e.useState(!0),l=e.useRef(null),c=e.useRef(null),{theme:r}=e.useContext(v);e.useEffect(()=>{const s=()=>{_(window.innerWidth<768)};return window.addEventListener("resize",s),s(),()=>window.removeEventListener("resize",s)},[]);const a=()=>u(!n),f=()=>{const s=l.current,d=c.current;if(!s||!d)return;(i?d:s).scrollIntoView(!0),E(!i)};return t.jsxs("div",{className:"main",children:[m&&t.jsx("button",{title:"Click to sroll to "+i?"preview":"editor",className:`floating-button btn ${r}`,onClick:f,children:i?"↓":"↑"}),n&&t.jsx(x,{closeList:a}),t.jsx("div",{className:`editor-sidebar ${r}`,ref:l,children:t.jsx(p,{toggleListVisibility:a})}),t.jsx("div",{className:`preview-pane ${r}`,ref:c,children:t.jsx(w,{})})]})};export{R as default};
+//# sourceMappingURL=index-NdgL4XO0.js.map
+function __vite__mapDeps(indexes) {
+  if (!__vite__mapDeps.viteFileDeps) {
+    __vite__mapDeps.viteFileDeps = ["assets/index-Los10QWI.js","assets/plugins-q0mUWLr-.js","assets/ace-T5rmW5Lp.js","assets/index-G1RmKFi7.js","assets/index-TqCWgsYm.css","assets/exportMarkdown-FI0QSQ96.js","assets/index-AmydUEcr.js","assets/index-TJWlWZ24.js"]
+  }
+  return indexes.map((i) => __vite__mapDeps.viteFileDeps[i])
+}
