@@ -6,13 +6,11 @@ import { EditorContext } from "context/editor";
 
 interface InsertModalProps {
     insertType: string;
-    showInsertModal: boolean;
     setShowInsertModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const InsertModal = ({
     insertType,
-    showInsertModal,
     setShowInsertModal,
 }: InsertModalProps) => {
     const [insertText, setInsertText] = useState("");
@@ -81,7 +79,6 @@ const InsertModal = ({
     return (
         <div
             className={`insert-modal ${theme}`}
-            style={{ display: showInsertModal ? "block" : "none" }}
         >
             <p>
                 Insert{" "}

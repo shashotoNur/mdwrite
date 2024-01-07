@@ -1,10 +1,7 @@
-import { MarkdownContext } from "context/markdown";
 import { useState, useEffect, useContext } from "react";
 
-import { ThemeContext } from "context/theme";
-import { exportMarkdown } from "utils/exportMarkdown";
-import { getReadableTime } from "utils/getReadableTime";
-
+import { MarkdownContext, ThemeContext } from "context";
+import { getReadableTime, exportMarkdown } from "utils";
 import "components/EntryList/styles.css";
 
 interface Entry {
@@ -20,7 +17,8 @@ interface GroupedEntry {
 
 const EntryList = ({ closeList }: { closeList: () => void }) => {
     const [groupedEntries, setGroupedEntries] = useState<GroupedEntry[]>([]);
-    const { handleChange, filenameChange, timestampChange } = useContext(MarkdownContext)!;
+    const { handleChange, filenameChange, timestampChange } =
+        useContext(MarkdownContext)!;
     const { theme } = useContext(ThemeContext)!;
 
     useEffect(() => {
@@ -92,6 +90,7 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
             <div
                 key="New Entry"
                 className={`new entry-button ${theme}`}
+                title="Open a new entry in the editor"
                 onClick={() =>
                     openEntry({
                         filename: "untitled",
@@ -105,46 +104,55 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
             {groupedEntries.length == 0 ? (
                 <div className={`entry-title ${theme}`}>No entry</div>
             ) : (
-                groupedEntries.map((entry) => entry.entries.length > 0 && (
-                    <div key={entry.entryName}>
-                        <div className={`entry-title ${theme}`}>
-                            {entry.entryName.length > 50
-                                ? entry.entryName.substring(0, 70) + "..."
-                                : entry.entryName}
-                        </div>
-                        {entry.entries.map((entry) => (
-                            <div
-                                className="entry"
-                                key={entry.timestamp.toString()}
-                            >
-                                <br />
-                                <button
-                                    className={`entry-button ${theme}`}
-                                    onClick={() => openEntry(entry)}
-                                >
-                                    {getReadableTime(entry.timestamp)}
-                                </button>
-                                <button
-                                    className={`export-button ${theme}`}
-                                    onClick={() =>
-                                        exportMarkdown({
-                                            filename: entry.filename,
-                                            markdown: entry.markdown,
-                                        })
-                                    }
-                                >
-                                    Export
-                                </button>
-                                <button
-                                    className="delete-button"
-                                    onClick={() => deleteEntry(entry)}
-                                >
-                                    Delete
-                                </button>
+                groupedEntries.map(
+                    (entry) =>
+                        entry.entries.length > 0 && (
+                            <div key={entry.entryName}>
+                                <div className={`entry-title ${theme}`}>
+                                    {entry.entryName.length > 50
+                                        ? entry.entryName.substring(0, 70) +
+                                          "..."
+                                        : entry.entryName}
+                                </div>
+                                {entry.entries.map((entry) => (
+                                    <div
+                                        className="entry"
+                                        key={entry.timestamp.toString()}
+                                    >
+                                        <br />
+                                        <button
+                                            title={`${
+                                                entry.filename
+                                            } from ${entry.timestamp.toDateString()}`}
+                                            className={`entry-button ${theme}`}
+                                            onClick={() => openEntry(entry)}
+                                        >
+                                            {getReadableTime(entry.timestamp)}
+                                        </button>
+                                        <button
+                                            title={`Export as ${entry.filename}.md`}
+                                            className={`export-button ${theme}`}
+                                            onClick={() =>
+                                                exportMarkdown({
+                                                    filename: entry.filename,
+                                                    markdown: entry.markdown,
+                                                })
+                                            }
+                                        >
+                                            Export
+                                        </button>
+                                        <button
+                                            title={`Delete this version of ${entry.filename}`}
+                                            className="delete-button"
+                                            onClick={() => deleteEntry(entry)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
-                ))
+                        )
+                )
             )}
         </div>
     );

@@ -5,7 +5,7 @@ const ErrorFallback = ({ error }: { error: Error }) => {
         <div className="error-boundary">
             <h2>Something went wrong.</h2>
             <p>Sorry for the inconvenience!</p>
-            {error && <pre>{error.message}</pre>}
+            {error && <pre title="This is actual error message">{error.message}</pre>}
             <p>Try reloading the page.</p>
         </div>
     );

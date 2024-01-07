@@ -12,7 +12,7 @@
     margin: 5px;
     padding: 5px 10px;
     border: none;
-    border-radius: 4px;
+
     background-color: var(--button-background-light);
     cursor: pointer;
     font-family: inherit;
@@ -30,7 +30,7 @@
 .toolbar-select {
     margin: 5px;
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--white);
     border-radius: 4px;
 }
 
@@ -40,28 +40,30 @@
 
 .search-modal,
 .insert-modal {
-    display: flex;
+    display: block;
     overflow: hidden;
     overflow-x: scroll;
     width: 100%;
     margin-top: 1%;
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: var(--white);
+    border: 1px solid var(--white);
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
     z-index: 1;
 }
 
-.insert-modal input {
+.insert-modal input,
+.search-modal input {
     margin-left: 5px;
     padding: 5px 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--white);
     border-radius: 4px;
     margin-bottom: 10px;
 }
 
-.insert-modal button {
+.insert-modal button,
+.search-modal button {
     max-height: 75%;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
 }

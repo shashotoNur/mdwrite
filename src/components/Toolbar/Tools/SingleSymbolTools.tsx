@@ -33,6 +33,7 @@ const SingleSymbolTools = () => {
     return (
         <>
             <select
+                title="Choose a heading"
                 className={`toolbar-select ${theme}`}
                 defaultValue=""
                 onChange={handleHeadingChange}
@@ -46,36 +47,42 @@ const SingleSymbolTools = () => {
                 <option value="6">Heading 6</option>
             </select>
             <button
+                title="Create bullet points"
                 className={`toolbar-button ${theme}`}
                 onClick={() => insertSingleSymbol("- ")}
             >
                 Unordered List
             </button>
             <button
+                title="Create an ordered list"
                 className={`toolbar-button ${theme}`}
                 onClick={() => insertSingleSymbol("1. ")}
             >
                 Ordered List
             </button>
             <button
+                title="Add a checkbox"
                 className={`toolbar-button ${theme}`}
                 onClick={() => insertSingleSymbol("- [ ] ")}
             >
                 Checkbox
             </button>
             <button
+                title="Add a horizontal rule"
                 className={`toolbar-button ${theme}`}
                 onClick={() => insertSingleSymbol("---\n")}
             >
                 Rule
             </button>
             <button
+                title="Add a line break"
                 className={`toolbar-button ${theme}`}
                 onClick={() => insertSingleSymbol("<br>")}
             >
                 Break
             </button>
             <button
+                title="Indent text with block quotes"
                 className={`toolbar-button ${theme}`}
                 onClick={() => insertSingleSymbol("> ")}
             >

@@ -7,7 +7,6 @@
     background-color: var(--background-light);
     border: 1px solid var(--border-light);
     box-shadow: 0 1px 3px var(--box-shadow-light);
-    color: #000; /* Default text color */
 }
 
 .file-input-group {
@@ -21,14 +20,13 @@
     margin: 5px;
     padding: 5px 7px;
     border: none;
-    border-radius: 5px;
-    background-color: #fff;
+    background-color: var(--white);
     box-shadow: 0 1px 3px var(--box-shadow-light);
     font-size: 10px;
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 5px rgba(0, 150, 255, 0.5);
-    color: #999;
+    color: var(--filename-text-color);
 }
 
 .file-input-group input[type="file"] {
@@ -39,9 +37,8 @@
     margin: 5px;
     padding: 5px 10px;
     box-shadow: 0 1px 3px var(--box-shadow-light);
-    border-radius: 4px;
     border: none;
-    background-color: #fff;
+    background-color: var(--white);
     cursor: pointer;
     font-family: inherit;
 }
@@ -56,19 +53,18 @@
     margin-bottom: 0.05%;
     padding-bottom: 0.5%;
     min-height: 60vh;
-    border: 0.25px solid #ccc;
 }
 
 .dark.editor-sidebar {
     background-color: var(--background-dark);
-    color: #fff;
+    color: var(--white);
     border: 1px solid var(--border-dark);
     box-shadow: 0 1px 3px var(--box-shadow-dark);
 }
 
 .dark.btn {
     background-color: var(--btn-background-dark);
-    color: #fff;
+    color: var(--white);
 }
 
 .dark.btn:hover {
@@ -77,18 +73,18 @@
 
 .dark.ace-editor {
     background-color: var(--background-dark);
-    color: #fff;
+    color: var(--white);
     border: 1px solid var(--border-dark);
 }
 
 .dark.toolbar-select {
     border: 1px solid var(--border-dark);
     background-color: var(--btn-background-dark);
-    color: #fff;
+    color: var(--white);
 }
 
 .dark.filename-input {
     border: 1px solid var(--border-dark);
     background-color: var(--button-background-dark);
-    color: #fff;
+    color: var(--white);
 }

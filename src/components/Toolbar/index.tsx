@@ -6,11 +6,8 @@ import {
     InsertModal,
 } from "components/Toolbar/Tools";
 
-import { ThemeContext } from "context/theme";
-import { EditorContext } from "context/editor";
-import { MarkdownContext } from "context/markdown";
-
 import "components/Toolbar/styles.css";
+import { ThemeContext, EditorContext, MarkdownContext } from "context";
 
 const Toolbar = ({
     toggleListVisibility,
@@ -18,7 +15,7 @@ const Toolbar = ({
     toggleListVisibility: () => void;
 }) => {
     const [showInsertModal, setShowInsertModal] = useState(false);
-    const [insertType, setInsertType] = useState("link"); // Default to "Link"
+    const [insertType, setInsertType] = useState("link");
     const [hideToolbar, setHideToolbar] = useState(true);
     const [searchText, setSearchText] = useState("");
     const [replacementText, setReplacementText] = useState("");
@@ -42,11 +39,12 @@ const Toolbar = ({
 
     const handleReplace = () => {
         if (!editor) return;
-        editor.replace(replacementText); // Replace with actual replacement text
+        editor.replace(replacementText);
     };
 
     const handleReplaceAll = () => {
         if (!editor) return;
+
         editor.replaceAll(replacementText, {
             caseSensitive: false,
             wholeWord: false,
@@ -82,10 +80,15 @@ const Toolbar = ({
 
     return (
         <div className={`toolbar ${theme}`}>
-            <button className={`toolbar-button ${theme}`} onClick={toggleTheme}>
-                <i>{theme === "light" ? "Dawn" : "Dusk"}</i>
+            <button
+                title="Click to change theme"
+                className={`toolbar-button ${theme}`}
+                onClick={toggleTheme}
+            >
+                <i>{theme === "light" ? "DAWN" : "DUSK"}</i>
             </button>
             <button
+                title="List of all the entries saved on this device"
                 className={`toolbar-button ${theme}`}
                 onClick={toggleListVisibility}
             >
@@ -94,17 +97,20 @@ const Toolbar = ({
             <button
                 className={`toolbar-button ${theme}`}
                 onClick={toggleAutosave}
-                title="When activated, the editor will save the active entry every 2 minutes"
+                title={
+                    autosave
+                        ? "Autosaving every 2 minutes"
+                        : "Autosaving is currently disabled"
+                }
             >
-                <i>{autosave === "true" ? "Auto" : "Not"} Saving</i>
+                <i>{autosave ? "Auto" : "Hold"}</i>
             </button>
             <button
                 className={`toolbar-button ${theme}`}
                 onClick={() => setHideToolbar(!hideToolbar)}
+                title={hideToolbar ? "Open toolbar" : "Close toolbar"}
             >
-                <b>
-                    <i>Tools</i>
-                </b>
+                <i>{hideToolbar ? ">" : "X"}</i>
             </button>
             {!hideToolbar && (
                 <>
@@ -113,23 +119,27 @@ const Toolbar = ({
                     <button
                         className={`toolbar-button ${theme}`}
                         onClick={createCodeBlock}
+                        title="Create code block"
                     >
                         Code
                     </button>
                     <div>
                         <button
+                            title="Insert a link"
                             className={`toolbar-button ${theme}`}
                             onClick={() => handleInsert("link")}
                         >
                             Link
                         </button>
                         <button
+                            title="Insert an image"
                             className={`toolbar-button ${theme}`}
                             onClick={() => handleInsert("image")}
                         >
                             Image
                         </button>
                         <button
+                            title="Insert a link reference"
                             className={`toolbar-button ${theme}`}
                             onClick={() => handleInsert("reference")}
                         >
@@ -137,6 +147,9 @@ const Toolbar = ({
                         </button>
                     </div>
                     <button
+                        title={`Click to ${
+                            hideSearch ? "open" : "close"
+                        } search modal`}
                         className={`toolbar-button ${theme}`}
                         onClick={() => setHideSearch(!hideSearch)}
                     >
@@ -177,11 +190,12 @@ const Toolbar = ({
                         </div>
                     )}
 
-                    <InsertModal
-                        insertType={insertType}
-                        showInsertModal={showInsertModal}
-                        setShowInsertModal={setShowInsertModal}
-                    ></InsertModal>
+                    {showInsertModal && (
+                        <InsertModal
+                            insertType={insertType}
+                            setShowInsertModal={setShowInsertModal}
+                        ></InsertModal>
+                    )}
                 </>
             )}
         </div>

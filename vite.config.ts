@@ -13,9 +13,8 @@ const userOptions: Partial<VitePWAOptions> = {
         start_url: baseURL,
         scope: baseURL,
         categories: ["Development", "Education", "Office"],
-        theme_color: "???",
+        theme_color: "#0D1117",
         display: "standalone",
-        // background_color: "#ffffff",
         icons: [
             {
                 src: baseURL + "icons/favicon.ico",
@@ -37,18 +36,19 @@ const userOptions: Partial<VitePWAOptions> = {
             },
             {
                 src: baseURL + "icons/apple-touch-icon.png",
-                sizes: "512x512",
+                sizes: "180x180",
                 type: "image/png",
                 purpose: "apple touch icon",
             },
             {
                 src: baseURL + "icons/favicon-16x16.png",
-                sizes: "512x512",
+                sizes: "16x16",
                 type: "image/png",
+                purpose: "any",
             },
             {
                 src: baseURL + "icons/favicon-32x32.png",
-                sizes: "512x512",
+                sizes: "32x32",
                 type: "image/png",
                 purpose: "any",
             },
@@ -61,7 +61,6 @@ const userOptions: Partial<VitePWAOptions> = {
     },
 };
 
-// https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react(), tsconfigPaths(), VitePWA(userOptions)],
     build: {

@@ -4,8 +4,7 @@ const Editor = lazy(() => import("components/Editor"));
 const EntryList = lazy(() => import("components/EntryList"));
 const Preview = lazy(() => import("components/Preview"));
 
-import { ThemeContext } from "context/theme";
-
+import { ThemeContext } from "context";
 import "components/Main/styles.css";
 
 const Main = () => {
@@ -43,6 +42,11 @@ const Main = () => {
         <div className="main">
             {isSmallScreen && (
                 <button
+                    title={
+                        "Click to sroll to " + isEditorVisible
+                            ? "preview"
+                            : "editor"
+                    }
                     className={`floating-button btn ${theme}`}
                     onClick={toggleVisibility}
                 >

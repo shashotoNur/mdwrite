@@ -8,10 +8,9 @@ import rehypeRaw from "rehype-raw"; // Crucial for HTML tag preservation
 import rehypeStringify from "rehype-stringify";
 import emoji from "remark-emoji";
 
-import { ThemeContext } from "context/theme";
-import { MarkdownContext } from "context/markdown";
 
 import "components/Preview/styles.css";
+import { MarkdownContext, ThemeContext } from "context";
 
 const Preview = () => {
     const themeContext = useContext(ThemeContext);

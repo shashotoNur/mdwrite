@@ -1,7 +1,6 @@
 import { useContext } from "react";
 
-import { ThemeContext } from "context/theme";
-
+import { ThemeContext } from "context";
 import "components/Home/styles.css";
 
 const Home = ({ closeHome }: { closeHome: () => void }) => {
@@ -15,6 +14,7 @@ const Home = ({ closeHome }: { closeHome: () => void }) => {
                     height={75}
                     width={75}
                     className="logo"
+                    title="mdWrite logo - Click to close this modal"
                     src="icons/android-chrome-192x192.png"
                     alt="mdWrite Logo"
                     onClick={closeHome}
@@ -63,7 +63,7 @@ const Home = ({ closeHome }: { closeHome: () => void }) => {
                             <ul>
                                 <li>
                                     Choose between light or dark theme by
-                                    clicking the &quot;Dawn&quot; button.
+                                    clicking the &quot;DAWN&quot; button.
                                 </li>
                             </ul>
                         </li>
@@ -147,8 +147,9 @@ const Home = ({ closeHome }: { closeHome: () => void }) => {
             <button
                 className={`close-home-button ${theme}`}
                 onClick={closeHome}
+                title="Click to close this modal"
             >
-                Close
+                X
             </button>
         </div>
     );

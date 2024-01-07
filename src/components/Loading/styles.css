@@ -1,0 +1,19 @@
+.loading {
+    /* text-align: center; */
+    padding: 20px;
+    border: 1px solid #acceeb;
+
+    background-color: #dfefff;
+    color: #001428;
+}
+
+.loading h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+}
+
+.loading p {
+    font-family: BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    line-height: 0.5;
+}

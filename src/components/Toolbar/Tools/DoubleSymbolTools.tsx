@@ -20,36 +20,42 @@ const DoubleSymbolTools = () => {
     return (
         <>
             <button
+                title="Bold text"
                 className={`toolbar-button ${theme}`}
                 onClick={() => callInsertDoubleSymbol("__")}
             >
                 <b>B</b>
             </button>
             <button
+                title="Italic text"
                 className={`toolbar-button ${theme}`}
                 onClick={() => callInsertDoubleSymbol("_")}
             >
                 <i>I</i>
             </button>
             <button
+                title="Underlined text"
                 className={`toolbar-button ${theme}`}
                 onClick={() => callInsertDoubleSymbol("<ins>")}
             >
                 <u>u</u>
             </button>
             <button
+                title="Strike through text"
                 className={`toolbar-button ${theme}`}
                 onClick={() => callInsertDoubleSymbol("~")}
             >
                 <del>Strike</del>
             </button>
             <button
+                title="Text as a subscript"
                 className={`toolbar-button ${theme}`}
                 onClick={() => callInsertDoubleSymbol("<sub>")}
             >
                 Sub
             </button>
             <button
+                title="Text as a superscript"
                 className={`toolbar-button ${theme}`}
                 onClick={() => callInsertDoubleSymbol("<sup>")}
             >

@@ -6,7 +6,7 @@ export interface MarkdownContextType {
     timestamp: Date;
     wordCount: number;
     charCount: number;
-    autosave: string;
+    autosave: boolean;
     toVersion: boolean;
     handleChange: (newMarkdown: string) => void;
     filenameChange: (newFilename: string) => void;
@@ -25,13 +25,13 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
     const [markdown, setMarkdown] = useState("");
     const [filename, setFilename] = useState("untitled");
     const [timestamp, setTimestamp] = useState(new Date());
-    const [autosave, setAutosave] = useState("false");
+    const [autosave, setAutosave] = useState(false);
     const [toVersion, setToVersion] = useState(false);
     const [wordCount, setWordCount] = useState(0);
     const [charCount, setCharCount] = useState(0);
     const [lastSaveTime, setLastSaveTime] = useState(0);
 
-    const TwoMinInMS = 10 * 1000;
+    const TwoMinInMS = 2 * 60 * 1000;
 
     const handleChange = (newMarkdown: string) => {
         setMarkdown(newMarkdown);
@@ -40,7 +40,7 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
         );
         setCharCount(newMarkdown.length);
 
-        if (autosave === "false") return;
+        if (!autosave) return;
 
         const dateNow = new Date();
         const lastSaved = Date.now() - lastSaveTime;
@@ -65,7 +65,7 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const filenameChange = (newFilename: string) => {
         setFilename(newFilename);
-        setAutosave("false");
+        setAutosave(false);
     };
 
     const timestampChange = (date: Date) => {
@@ -73,8 +73,7 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
     };
 
     const toggleAutosave = () => {
-        const toggledValue = autosave === "true" ? "false" : "true";
-        setAutosave(toggledValue);
+        setAutosave(!autosave);
     };
 
     const toggleToVersion = () => {

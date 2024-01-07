@@ -7,15 +7,10 @@ import "ace-builds/src-noconflict/theme-dracula";
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/ext-searchbox";
 
+import { Toolbar } from "components";
+import { ThemeContext, MarkdownContext, EditorContext } from "context";
+import { handleKeyDown, exportMarkdown } from "utils";
 import "components/Editor/styles.css";
-import Toolbar from "components/Toolbar";
-
-import { ThemeContext } from "context/theme";
-import { MarkdownContext } from "context/markdown";
-import { EditorContext } from "context/editor";
-import { handleKeyDown } from "utils/keyPress";
-
-import { exportMarkdown } from "utils/exportMarkdown";
 
 const Editor = ({
     toggleListVisibility,
@@ -98,30 +93,55 @@ const Editor = ({
                         name="filename-input"
                         value={filename}
                         onChange={(e) => filenameChange(e.target.value)}
+                        title="Enter the name of your entry"
                     />
                 </label>
 
-                <label className={`btn ${theme}`}>
+                <label
+                    className={`btn ${theme}`}
+                    title="Import a document into the editor"
+                >
                     <input type="file" onChange={handleFileChange} />
                     Import
                 </label>
                 <label
                     className={`btn ${theme}`}
+                    title="Export the active entry from the editor"
                     onClick={() => exportMarkdown({ filename, markdown })}
                 >
                     Export
                 </label>
-                <button className={`btn ${theme}`} onClick={saveToStorage}>
+                <button
+                    className={`btn ${theme}`}
+                    onClick={saveToStorage}
+                    title="Save the current entry in your browser"
+                >
                     Save
                 </button>
-                <button className={`btn ${theme}`} onClick={toggleToVersion}>
-                    Versioning: {toVersion ? "On" : "Off"}
+                <button
+                    className={`btn ${theme}`}
+                    onClick={toggleToVersion}
+                    title={
+                        toVersion
+                            ? "The editor is keeping a version history of your entry"
+                            : "Version history is disabled"
+                    }
+                >
+                    Versioning: {toVersion ? "ON" : "NO"}
                 </button>
                 <div>
-                    <label className={`btn ${theme}`} onClick={undo}>
+                    <label
+                        className={`btn ${theme}`}
+                        onClick={undo}
+                        title="Undo"
+                    >
                         ↺
                     </label>
-                    <label className={`btn ${theme}`} onClick={redo}>
+                    <label
+                        className={`btn ${theme}`}
+                        onClick={redo}
+                        title="Redo"
+                    >
                         ⟳
                     </label>
                 </div>

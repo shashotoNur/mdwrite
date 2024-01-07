@@ -1,10 +1,10 @@
 .error-boundary {
     text-align: center;
     padding: 20px;
-    border: 1px solid #f00;
-    border-radius: 5px;
-    background-color: #f2dede;
-    color: #a94442;
+    border: 1px solid var(--danger);
+
+    background-color: var(--error-bg);
+    color: var(--danger-light);
 }
 
 .error-boundary h2 {
@@ -15,8 +15,8 @@
 .error-boundary pre {
     margin-top: 10px;
     font-family: monospace;
-    background-color: #eee;
+    background-color: var(--white);
     padding: 10px;
-    border-radius: 5px;
+
     overflow-x: auto;
 }
