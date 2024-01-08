@@ -1,29 +1,29 @@
 # mdWrite
 
-[![Project Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
+[![Project Status](https://img.shields.io/badge/status-finished-success.svg)]()
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 A web-based markdown editor
 
 ## Table of Contents
 
--   [mdWrite](#mdwrite)
-    -   [Table of Contents](#table-of-contents)
-    -   [About](#about)
-    -   [Features](#features)
-    -   [Getting Started](#getting-started)
-        -   [Prerequisites](#prerequisites)
-        -   [Installation](#installation)
-        -   [Useful Scripts](#useful-scripts)
-    -   [Usage Guide](#usage-guide)
-    -   [License](#license)
-    -   [Contact](#contact)
+- [mdWrite](#mdwrite)
+  - [Table of Contents](#table-of-contents)
+  - [About](#about)
+  - [Features](#features)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+    - [Useful Scripts](#useful-scripts)
+  - [Usage Guide](#usage-guide)
+  - [License](#license)
+  - [Contact](#contact)
 
 ## About
 
-![Home](preview/mdWrite_home.png)
+![Screenshot of home](public/preview/app_home.webp)
 
-![App](preview/mdWrite_app.png)
+![Screenshot of main app](public/preview/app_main.webp)
 
 Introducing a web-based Markdown editor meticulously crafted to elevate your writing workflow. Built upon the robust foundation of the Ace editor, it seamlessly blends efficiency and versatility to empower your creative process.
 

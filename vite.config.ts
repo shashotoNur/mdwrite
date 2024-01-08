@@ -3,18 +3,39 @@ import react from "@vitejs/plugin-react-swc";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 
-const baseURL = "https://shashotonur.github.io/mdwrite/";
+const name = "mdwrite";
+const origin = "shashotonur.github.io";
+const baseURL = `https://${origin}/${name}/`;
 
 const userOptions: Partial<VitePWAOptions> = {
     manifest: {
-        name: "mdWrite",
-        short_name: "mdWrite",
+        id: baseURL,
+        name,
+        short_name: name,
         description: "A web-based markdown editor",
         start_url: baseURL,
         scope: baseURL,
+        launch_handler: { client_mode: "auto" },
         categories: ["Development", "Education", "Office"],
+        orientation: "portrait",
         theme_color: "#0D1117",
         display: "standalone",
+        dir: "ltr",
+        scope_extensions: [{ origin }],
+        screenshots: [
+            {
+                src: baseURL + "preview/app_home.webp",
+                sizes: "1366x1379",
+                form_factor: "wide",
+                type: "image/webp",
+            },
+            {
+                src: baseURL + "preview/app_main.webp",
+                sizes: "1366x1152",
+                form_factor: "wide",
+                type: "image/webp",
+            },
+        ],
         icons: [
             {
                 src: baseURL + "icons/favicon.ico",
@@ -26,19 +47,19 @@ const userOptions: Partial<VitePWAOptions> = {
                 src: baseURL + "icons/android-chrome-192x192.png",
                 sizes: "192x192",
                 type: "image/png",
-                purpose: "favicon",
+                purpose: "any",
             },
             {
                 src: baseURL + "icons/android-chrome-512x512.png",
                 sizes: "512x512",
                 type: "image/png",
-                purpose: "favicon",
+                purpose: "maskable",
             },
             {
                 src: baseURL + "icons/apple-touch-icon.png",
                 sizes: "180x180",
                 type: "image/png",
-                purpose: "apple touch icon",
+                purpose: "monochrome",
             },
             {
                 src: baseURL + "icons/favicon-16x16.png",
@@ -57,7 +78,7 @@ const userOptions: Partial<VitePWAOptions> = {
     registerType: "autoUpdate",
     injectRegister: "auto",
     workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,txt,webmanifest}"],
+        globPatterns: ["**/*.{js,css,html,ico,png,webp,txt,webmanifest}"],
     },
 };
 
@@ -70,7 +91,7 @@ export default defineConfig({
             output: {
                 manualChunks: {
                     ace: ["react-ace"],
-                    plugins: ["react-markdown", "rehype-raw", "remark-emoji"]
+                    plugins: ["react-markdown", "rehype-raw", "remark-emoji"],
                 },
             },
         },
