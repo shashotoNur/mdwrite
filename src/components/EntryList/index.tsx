@@ -142,6 +142,23 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
                                             Export
                                         </button>
                                         <button
+                                            title={`Export as ${entry.filename}.md`}
+                                            className={`export-button ${theme}`}
+                                            onClick={() =>
+                                                exportMarkdown({
+                                                    filename:
+                                                        entry.filename +
+                                                        " - " +
+                                                        getReadableTime(
+                                                            entry.timestamp
+                                                        ),
+                                                    markdown: entry.markdown,
+                                                })
+                                            }
+                                        >
+                                            @
+                                        </button>
+                                        <button
                                             title={`Delete this version of ${entry.filename}`}
                                             className="delete-button"
                                             onClick={() => deleteEntry(entry)}

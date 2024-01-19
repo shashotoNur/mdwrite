@@ -24,6 +24,7 @@ const Editor = ({
         markdown,
         timestamp,
         toVersion,
+        isSaved,
         handleChange,
         filenameChange,
         timestampChange,
@@ -31,6 +32,20 @@ const Editor = ({
         saveToStorage,
     } = useContext(MarkdownContext)!;
     const { editor, changeEditor } = useContext(EditorContext)!;
+
+    useEffect(() => {
+        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+            if (isSaved) return;
+            event.preventDefault(); // Prevent immediate exit
+            return (event.returnValue = ""); // Allow exit after confirmation
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+    }, [isSaved]);
 
     useEffect(() => {
         if (!editorRef.current) return;
@@ -96,6 +111,7 @@ const Editor = ({
                         title="Enter the name of your entry"
                     />
                 </label>
+                <div className="status">{isSaved ? "Saved" : "Not saved"}</div>
 
                 <label
                     className={`btn ${theme}`}

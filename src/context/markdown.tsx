@@ -8,6 +8,7 @@ export interface MarkdownContextType {
     charCount: number;
     autosave: boolean;
     toVersion: boolean;
+    isSaved: boolean;
     handleChange: (newMarkdown: string) => void;
     filenameChange: (newFilename: string) => void;
     toggleAutosave: () => void;
@@ -30,6 +31,7 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
     const [wordCount, setWordCount] = useState(0);
     const [charCount, setCharCount] = useState(0);
     const [lastSaveTime, setLastSaveTime] = useState(0);
+    const [isSaved, setIsSaved] = useState(false);
 
     const TwoMinInMS = 2 * 60 * 1000;
 
@@ -40,27 +42,30 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
         );
         setCharCount(newMarkdown.length);
 
-        if (!autosave) return;
-
-        const dateNow = new Date();
-        const lastSaved = Date.now() - lastSaveTime;
-
-        if (lastSaved < TwoMinInMS) return;
+        const dateObjNow = new Date();
+        const dateNumberNow = Date.now();
+        const lastSaved = dateNumberNow - lastSaveTime;
 
         const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
-        const initialTimestamp = timestamp.toLocaleString("en-US", {
+        const oldTime = timestamp.toLocaleString("en-US", {
             timeZone,
         });
-        const newTimestamp = dateNow.toLocaleString("en-US", {
-            timeZone,
-        });
-        const initialEntryKey = `Entry: ${filename} - ${initialTimestamp}`;
-        const newEntryKey = `Entry: ${filename} - ${newTimestamp}`;
+        const oldEntry = `Entry: ${filename} - ${oldTime}`;
+        const oldMarkdown = localStorage.getItem(oldEntry);
 
-        localStorage.setItem(newEntryKey, newMarkdown);
-        localStorage.removeItem(initialEntryKey);
-        setLastSaveTime(Date.now());
-        setTimestamp(dateNow);
+        if (oldMarkdown === newMarkdown) return setIsSaved(true);
+        if (!autosave || lastSaved < TwoMinInMS) return setIsSaved(false);
+
+        const newTime = dateObjNow.toLocaleString("en-US", {
+            timeZone,
+        });
+        const newEntry = `Entry: ${filename} - ${newTime}`;
+
+        localStorage.setItem(newEntry, newMarkdown);
+        localStorage.removeItem(oldEntry);
+
+        setLastSaveTime(dateNumberNow);
+        setTimestamp(dateObjNow);
     };
 
     const filenameChange = (newFilename: string) => {
@@ -83,18 +88,24 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
     const saveToStorage = () => {
         const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
         const now = new Date();
-        const formattedDate = now.toLocaleString("en-US", {
+        const newTime = now.toLocaleString("en-US", {
             timeZone,
         });
-        const entryKey = `Entry: ${filename} - ${formattedDate}`;
-        localStorage.setItem(entryKey, markdown);
+        const oldTime = timestamp.toLocaleString("en-US", {
+            timeZone,
+        });
+
+        const oldEntry = `Entry: ${filename} - ${oldTime}`;
+        const oldMarkdown = localStorage.getItem(oldEntry);
+        if (markdown === oldMarkdown) return console.log("not saving");
+
+        const newEntry = `Entry: ${filename} - ${newTime}`;
+        localStorage.setItem(newEntry, markdown);
 
         if (toVersion) return;
-        const oldDate = timestamp.toLocaleString("en-US", {
-            timeZone,
-        });
         setTimestamp(now);
-        localStorage.removeItem(`Entry: ${filename} - ${oldDate}`);
+        setIsSaved(true);
+        localStorage.removeItem(oldEntry);
     };
 
     return (
@@ -107,6 +118,7 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
                 charCount,
                 autosave,
                 toVersion,
+                isSaved,
                 handleChange,
                 filenameChange,
                 toggleAutosave,
