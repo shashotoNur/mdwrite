@@ -10,16 +10,13 @@ import rehypeStringify from "rehype-stringify";
 import emoji from "remark-emoji";
 
 import "components/Preview/styles.css";
-import { MarkdownContext, ThemeContext } from "context";
+import { SecondPreviewContext, ThemeContext } from "context";
 import { ErrorFallback } from "components";
 
-const Preview = () => {
-    const themeContext = useContext(ThemeContext);
+const SecondPreview = () => {
+    const { theme } = useContext(ThemeContext)!;
     const { markdown, wordCount, charCount, filename } =
-        useContext(MarkdownContext)!;
-
-    if (!themeContext) return <div>Error: Theme context is null</div>;
-    const { theme } = themeContext;
+        useContext(SecondPreviewContext)!;
 
     return (
         <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -47,4 +44,4 @@ const Preview = () => {
     );
 };
 
-export default Preview;
+export default SecondPreview;

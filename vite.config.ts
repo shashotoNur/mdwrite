@@ -3,9 +3,13 @@ import react from "@vitejs/plugin-react-swc";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 
+const inProduction = true;
+
 const name = "mdwrite";
 const origin = "shashotonur.github.io";
-const baseURL = `https://${origin}/${name}/`;
+const baseURL = inProduction
+    ? `https://${origin}/${name}/`
+    : `http://localhost:3000/${name}/`;
 
 const userOptions: Partial<VitePWAOptions> = {
     manifest: {

@@ -50,7 +50,7 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
         const oldTime = timestamp.toLocaleString("en-US", {
             timeZone,
         });
-        const oldEntry = `Entry: ${filename} - ${oldTime}`;
+        const oldEntry = `Entry: ${filename} :~~: ${oldTime}`;
         const oldMarkdown = localStorage.getItem(oldEntry);
 
         if (oldMarkdown === newMarkdown) return setIsSaved(true);
@@ -59,7 +59,7 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
         const newTime = dateObjNow.toLocaleString("en-US", {
             timeZone,
         });
-        const newEntry = `Entry: ${filename} - ${newTime}`;
+        const newEntry = `Entry: ${filename} :~~: ${newTime}`;
 
         localStorage.setItem(newEntry, newMarkdown);
         localStorage.removeItem(oldEntry);
@@ -95,16 +95,16 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
             timeZone,
         });
 
-        const oldEntry = `Entry: ${filename} - ${oldTime}`;
+        const oldEntry = `Entry: ${filename} :~~: ${oldTime}`;
         const oldMarkdown = localStorage.getItem(oldEntry);
         if (markdown === oldMarkdown) return console.log("not saving");
 
-        const newEntry = `Entry: ${filename} - ${newTime}`;
+        const newEntry = `Entry: ${filename} :~~: ${newTime}`;
         localStorage.setItem(newEntry, markdown);
 
-        if (toVersion) return;
         setTimestamp(now);
         setIsSaved(true);
+        if (toVersion) return;
         localStorage.removeItem(oldEntry);
     };
 

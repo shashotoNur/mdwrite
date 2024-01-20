@@ -7,7 +7,7 @@ const Preview = lazy(() => import("components/Preview"));
 import { ThemeContext } from "context";
 import "components/Main/styles.css";
 
-const Main = () => {
+const Main = ({ toCloseList }: { toCloseList: boolean }) => {
     const [isEntryListVisible, setIsEntryListVisible] = useState(true);
     const [isSmallScreen, setIsSmallScreen] = useState(false);
     const [isEditorVisible, setIsEditorVisible] = useState(true);
@@ -16,6 +16,8 @@ const Main = () => {
     const { theme } = useContext(ThemeContext)!;
 
     useEffect(() => {
+        if(toCloseList) setIsEntryListVisible(false);
+
         const handleResize = () => {
             setIsSmallScreen(window.innerWidth < 768);
         };
@@ -23,7 +25,7 @@ const Main = () => {
         handleResize(); // Initial check
 
         return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    }, [toCloseList]);
 
     const toggleListVisibility = () =>
         setIsEntryListVisible(!isEntryListVisible);
@@ -43,7 +45,7 @@ const Main = () => {
             {isSmallScreen && (
                 <button
                     title={
-                        "Click to sroll to " + isEditorVisible
+                        "Click to scroll to " + isEditorVisible
                             ? "preview"
                             : "editor"
                     }

@@ -53,7 +53,7 @@ a {
     width: 100vw;
     /* Fill the entire viewport height */
     min-height: 100vh;
-    max-height: 150vh;
+    max-height: 170vh;
 }
 
 .main>* {

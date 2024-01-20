@@ -91,6 +91,7 @@ const Toolbar = ({
                 title="List of all the entries saved on this device"
                 className={`toolbar-button ${theme}`}
                 onClick={toggleListVisibility}
+                id="entries-button"
             >
                 <i>Entries</i>
             </button>

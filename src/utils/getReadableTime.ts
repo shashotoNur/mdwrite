@@ -20,13 +20,12 @@ export const getReadableTime = (dateObject: Date) => {
 
     const formattedDate = `${date} ${month}, ${year}`;
 
-    const hours = dateObject.getHours();
-    const minutes = dateObject.getMinutes();
+    const hours = dateObject.getHours() % 12 || 12;
+    const minutes = dateObject.getMinutes().toString().padStart(2, "0");
+    const seconds = dateObject.getSeconds().toString().padStart(2, "0");
     const meridian = hours >= 12 ? "PM" : "AM";
 
-    const formattedTime = `${hours % 12 || 12}:${minutes
-        .toString()
-        .padStart(2, "0")} ${meridian}`; // Example output: "9:01 AM"
+    const formattedTime = `${hours}:${minutes}:${seconds} ${meridian}`;
 
     return `${formattedTime} - ${formattedDate}`;
 };

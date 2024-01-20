@@ -111,7 +111,9 @@ const Editor = ({
                         title="Enter the name of your entry"
                     />
                 </label>
-                <div className="status">{isSaved ? "Saved" : "Not saved"}</div>
+                <h4 title={isSaved ? "Document is saved" : "Unsaved changes"} className="status">
+                    {isSaved ? "✔" : "✘"}
+                </h4>
 
                 <label
                     className={`btn ${theme}`}

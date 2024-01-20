@@ -88,6 +88,10 @@ const Home = ({ closeHome }: { closeHome: () => void }) => {
                                     interruptions. Check its status with the
                                     &quot;Save&quot; button.
                                 </li>
+                                <li>
+                                    Markers &quot;✔&quot; and &quot;✘&quot; show whether
+                                    or not your work is saved.
+                                </li>
                             </ul>
                         </li>
                         <li>
@@ -107,6 +111,7 @@ const Home = ({ closeHome }: { closeHome: () => void }) => {
                                             Ctrl+s: Manually save and create a
                                             version
                                         </li>
+                                        <li>Ctrl+o: Open the entries list</li>
                                     </ul>
                                 </li>
                             </ul>
@@ -121,6 +126,14 @@ const Home = ({ closeHome }: { closeHome: () => void }) => {
                                 <li>
                                     Keep track of changes and revert to previous
                                     versions (manual saves only).
+                                </li>
+                                <li>
+                                    Open saved entries in new tab with custom
+                                    url.
+                                </li>
+                                <li>
+                                    Preview and compare two versions side by
+                                    side.
                                 </li>
                             </ul>
                         </li>

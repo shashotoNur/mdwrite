@@ -20,3 +20,12 @@
 
     overflow-x: auto;
 }
+
+.error-boundary b {
+    margin-top: 0;
+    font-size: 1.1em;
+}
+
+.error-boundary b:hover {
+    cursor: pointer;
+}

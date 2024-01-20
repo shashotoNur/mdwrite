@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import { MarkdownContext, ThemeContext } from "context";
 import { getReadableTime, exportMarkdown } from "utils";
@@ -16,18 +17,22 @@ interface GroupedEntry {
 }
 
 const EntryList = ({ closeList }: { closeList: () => void }) => {
+    const [selectedEntries, setSelectedEntries] = useState<Entry[]>([]);
     const [groupedEntries, setGroupedEntries] = useState<GroupedEntry[]>([]);
     const { handleChange, filenameChange, timestampChange } =
         useContext(MarkdownContext)!;
     const { theme } = useContext(ThemeContext)!;
+    const navigate = useNavigate();
 
     useEffect(() => {
         const storedEntries = Object.entries(localStorage)
             .filter(([key]) => key.startsWith("Entry: "))
             .map(([key, value]: [key: string, value: string]) => ({
-                filename: key.replace("Entry: ", "").split(" - ")[0],
+                filename: key.replace("Entry: ", "").split(" :~~: ")[0],
                 markdown: value,
-                timestamp: new Date(key.replace("Entry: ", "").split(" - ")[1]),
+                timestamp: new Date(
+                    key.replace("Entry: ", "").split(" :~~: ")[1]
+                ),
             }));
 
         const groupedEntries = Object.values(
@@ -55,6 +60,30 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
         setGroupedEntries(groupedEntries);
     }, [closeList]);
 
+    const handleEntryClick = (entry: Entry) => {
+        setSelectedEntries((prevSelectedEntries) => {
+            if (prevSelectedEntries.includes(entry)) {
+                return prevSelectedEntries.filter((e) => e !== entry);
+            } else {
+                return prevSelectedEntries.length < 2
+                    ? [...prevSelectedEntries, entry]
+                    : prevSelectedEntries;
+            }
+        });
+    };
+
+    const previewEntries = () => {
+        if (selectedEntries.length !== 2) return;
+        const entry1 = `${selectedEntries[0].filename}@${getReadableTime(
+            selectedEntries[0].timestamp
+        )}`;
+        const entry2 = `${selectedEntries[1].filename}@${getReadableTime(
+            selectedEntries[1].timestamp
+        )}`;
+
+        navigate(`/mdwrite/previews/p1/${entry1}/p2/${entry2}`);
+    };
+
     const openEntry = (entry: Entry) => {
         filenameChange(entry.filename);
         handleChange(entry.markdown);
@@ -67,7 +96,9 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
         const formattedDate = target.timestamp.toLocaleString("en-US", {
             timeZone,
         });
-        localStorage.removeItem(`Entry: ${target.filename} - ${formattedDate}`);
+        localStorage.removeItem(
+            `Entry: ${target.filename} :~~: ${formattedDate}`
+        );
 
         const newEntries = groupedEntries.map((entry) => {
             if (entry.entryName === target.filename) {
@@ -87,19 +118,29 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
     return (
         <div className={`entry-list ${theme}`}>
             <h2 className={`entry-list-heading ${theme}`}>Saved Entries</h2>
-            <div
-                key="New Entry"
-                className={`new entry-button ${theme}`}
-                title="Open a new entry in the editor"
-                onClick={() =>
-                    openEntry({
-                        filename: "untitled",
-                        markdown: "",
-                        timestamp: new Date(),
-                    })
-                }
-            >
-                New Entry
+            <div className="header-button-container">
+                <button
+                    key="New Entry"
+                    className={`entry-button ${theme}`}
+                    title="Open a new entry in the editor"
+                    onClick={() =>
+                        openEntry({
+                            filename: "untitled",
+                            markdown: "",
+                            timestamp: new Date(),
+                        })
+                    }
+                >
+                    New Entry
+                </button>
+                <button
+                    key="Preview"
+                    className={`entry-button ${theme}`}
+                    title="Mark two entries to open a preview"
+                    onClick={previewEntries}
+                >
+                    Preview
+                </button>
             </div>
             {groupedEntries.length == 0 ? (
                 <div className={`entry-title ${theme}`}>No entry</div>
@@ -120,6 +161,24 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
                                         key={entry.timestamp.toString()}
                                     >
                                         <br />
+                                        <label
+                                            title="Check to preview"
+                                            className={`checkbox-container ${theme}`}
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                name="myCheckbox"
+                                                checked={selectedEntries.includes(
+                                                    entry
+                                                )}
+                                                onChange={() =>
+                                                    handleEntryClick(entry)
+                                                }
+                                            />
+                                            <span
+                                                className={`checkbox-checkmark ${theme}`}
+                                            ></span>
+                                        </label>
                                         <button
                                             title={`${
                                                 entry.filename
@@ -127,8 +186,20 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
                                             className={`entry-button ${theme}`}
                                             onClick={() => openEntry(entry)}
                                         >
-                                            {getReadableTime(entry.timestamp)}
+                                            {getReadableTime(entry.timestamp)}{" "}
                                         </button>
+                                        <Link
+                                            title="Open entry in new tab"
+                                            to={
+                                                "entry/" +
+                                                entry.filename +
+                                                "@" +
+                                                getReadableTime(entry.timestamp)
+                                            }
+                                            target="_blank"
+                                        >
+                                            <h3>[↗]</h3>
+                                        </Link>
                                         <button
                                             title={`Export as ${entry.filename}.md`}
                                             className={`export-button ${theme}`}
@@ -148,7 +219,7 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
                                                 exportMarkdown({
                                                     filename:
                                                         entry.filename +
-                                                        " - " +
+                                                        "@" +
                                                         getReadableTime(
                                                             entry.timestamp
                                                         ),

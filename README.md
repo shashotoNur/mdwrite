@@ -79,7 +79,10 @@ You can deploy this app to your own github page.
     -   Ctrl+i: Italicize text.
     -   Ctrl+f: Initiate text searches within the active entry.
     -   Ctrl+s: Preserve the active entry within the browser.
+    -   Ctrl+o: Open the saved entries list.
 -   **Import and Export Capabilities:** Effortlessly transfer entries between the editor and your local filesystem for seamless integration.
+-   **Entries with Custom URL:** Open entries in separate tab with their own url. Easily open an entry using its url.
+-   **Preview Comparison:** Compare the previews of two entries side by side by launching "Preview" from Saved Entries.
 -   **File Versioning:** Maintain a historical record of file alterations within the browser for enhanced content management. Note that Autosave-induced saves are excluded from versioning; this functionality applies exclusively to saves performed using Ctrl+s.
 
 **Additional Notes:**

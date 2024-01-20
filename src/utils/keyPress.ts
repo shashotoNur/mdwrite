@@ -24,6 +24,10 @@ export const handleKeyDown = ({
             event.preventDefault();
             saveToStorage();
             break;
+        case "o":
+            event.preventDefault();
+            document.getElementById("entries-button")?.click();
+            break;
     }
 };
 
