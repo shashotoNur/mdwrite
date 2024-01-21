@@ -5,10 +5,10 @@
     background-color: var(--entry-list-light-bg);
     padding: 2rem;
     box-shadow: 0px 4px 8px var(--box-shadow-light);
-    position: fixed;
+    position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-70%, -50%);
+    left: 67.5%;
+    transform: translate(-120%, -50%);
     overflow-y: scroll;
     max-height: 80vh;
     width: 40rem;
@@ -184,17 +184,36 @@
     background-color: var(--button-hover-dark);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 2000px) {
     .entry-list {
-        width: 80%;
-        left: 67.5%;
-        position: fixed;
+        transform: translate(-100%, -50%);
     }
 }
 
-@media (max-height: 1250px) {
+@media (max-width: 1600px) {
     .entry-list {
-        top: 55%;
-        left: 67.5%;
+        width: 40%;
+        transform: translate(-92%, -50%);
+    }
+}
+
+@media (max-width: 1200px) {
+    .entry-list {
+        width: 60%;
+        transform: translate(-72.5%, -50%);
+    }
+}
+
+@media (max-width: 800px) {
+    .entry-list {
+        width: 80%;
+        transform: translate(-70%, -50%);
+    }
+}
+
+@media (max-width: 400px) {
+    .entry-list {
+        width: 90%;
+        transform: translate(-67.5%, -50%);
     }
 }

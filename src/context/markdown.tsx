@@ -9,7 +9,11 @@ export interface MarkdownContextType {
     autosave: boolean;
     toVersion: boolean;
     isSaved: boolean;
-    handleChange: (newMarkdown: string) => void;
+    handleChange: (
+        newMarkdown: string,
+        newTimestamp?: Date,
+        newFilename?: string
+    ) => void;
     filenameChange: (newFilename: string) => void;
     toggleAutosave: () => void;
     timestampChange: (date: Date) => void;
@@ -27,7 +31,7 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
     const [filename, setFilename] = useState("untitled");
     const [timestamp, setTimestamp] = useState(new Date());
     const [autosave, setAutosave] = useState(false);
-    const [toVersion, setToVersion] = useState(false);
+    const [toVersion, setToVersion] = useState(true);
     const [wordCount, setWordCount] = useState(0);
     const [charCount, setCharCount] = useState(0);
     const [lastSaveTime, setLastSaveTime] = useState(0);
@@ -35,7 +39,11 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const TwoMinInMS = 2 * 60 * 1000;
 
-    const handleChange = (newMarkdown: string) => {
+    const handleChange = (
+        newMarkdown: string,
+        newTimestamp?: Date,
+        newFilename?: string
+    ) => {
         setMarkdown(newMarkdown);
         setWordCount(
             newMarkdown.split(/\s+/).filter((string) => string).length
@@ -46,11 +54,14 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
         const dateNumberNow = Date.now();
         const lastSaved = dateNumberNow - lastSaveTime;
 
+        const latestTimestamp = newTimestamp ?? timestamp;
+        const latestFilename = newFilename ?? filename;
+
         const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
-        const oldTime = timestamp.toLocaleString("en-US", {
+        const oldTime = latestTimestamp.toLocaleString("en-US", {
             timeZone,
         });
-        const oldEntry = `Entry: ${filename} :~~: ${oldTime}`;
+        const oldEntry = `Entry: ${latestFilename} :~~: ${oldTime}`;
         const oldMarkdown = localStorage.getItem(oldEntry);
 
         if (oldMarkdown === newMarkdown) return setIsSaved(true);

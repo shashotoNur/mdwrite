@@ -85,9 +85,12 @@ const EntryList = ({ closeList }: { closeList: () => void }) => {
     };
 
     const openEntry = (entry: Entry) => {
-        filenameChange(entry.filename);
-        handleChange(entry.markdown);
-        timestampChange(entry.timestamp);
+        const { filename, timestamp, markdown } = entry;
+
+        filenameChange(filename);
+        timestampChange(timestamp);
+        handleChange(markdown, timestamp, filename);
+
         closeList();
     };
 

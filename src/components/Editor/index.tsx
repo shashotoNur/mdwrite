@@ -35,7 +35,7 @@ const Editor = ({
 
     useEffect(() => {
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-            if (isSaved) return;
+            if (isSaved || markdown === "") return;
             event.preventDefault(); // Prevent immediate exit
             return (event.returnValue = ""); // Allow exit after confirmation
         };
@@ -45,7 +45,7 @@ const Editor = ({
         return () => {
             window.removeEventListener("beforeunload", handleBeforeUnload);
         };
-    }, [isSaved]);
+    }, [isSaved, markdown]);
 
     useEffect(() => {
         if (!editorRef.current) return;
