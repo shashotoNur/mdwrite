@@ -16,7 +16,7 @@ const Main = ({ toCloseList }: { toCloseList: boolean }) => {
     const { theme } = useContext(ThemeContext)!;
 
     useEffect(() => {
-        if(toCloseList) setIsEntryListVisible(false);
+        if (toCloseList) setIsEntryListVisible(false);
 
         const handleResize = () => {
             setIsSmallScreen(window.innerWidth < 768);
@@ -59,7 +59,10 @@ const Main = ({ toCloseList }: { toCloseList: boolean }) => {
                 <EntryList closeList={toggleListVisibility} />
             )}
             <div className={`editor-sidebar ${theme}`} ref={editorRef}>
-                <Editor toggleListVisibility={toggleListVisibility} />
+                <Editor
+                    toggleListVisibility={toggleListVisibility}
+                    isListVisible={isEntryListVisible}
+                />
             </div>
             <div className={`preview-pane ${theme}`} ref={previewRef}>
                 <Preview />

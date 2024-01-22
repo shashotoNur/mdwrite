@@ -4,12 +4,13 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 
 const inProduction = true;
+const port = 6969;
 
 const name = "mdwrite";
 const origin = "shashotonur.github.io";
 const baseURL = inProduction
     ? `https://${origin}/${name}/`
-    : `http://localhost:3000/${name}/`;
+    : `http://localhost:${port}/${name}/`;
 
 const userOptions: Partial<VitePWAOptions> = {
     manifest: {
@@ -99,6 +100,7 @@ export default defineConfig({
                 },
             },
         },
+        chunkSizeWarningLimit: 512,
     },
     base: baseURL,
 });

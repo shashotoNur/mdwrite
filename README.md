@@ -71,7 +71,7 @@ You can deploy this app to your own github page.
 
 -   **Live Preview:** Observe a real-time visual representation of your Markdown code alongside the editor, encompassing support for HTML tags and Markdown emojis.
 -   **Theme Customization:** Toggle between light and dark themes effortlessly by clicking the designated "DAWN" button.
--   **Entry Management:** Upon launch, the editor presents a list of Markdown documents (entries) stored within the browser. Access or conceal this list using the "Entries" button.
+-   **Entry Management:** Upon launch, the editor presents a list of Markdown documents (entries) stored within the browser. Access or conceal this list using the "Entries" button. This list also grants the ability to rename and search for saved entries. Multiple entries can be imported or exported via a json file.
 -   **Autosave Functionality:** While disabled by default, the Autosave feature can be activated via the "Save" button, which concurrently indicates its current status.
 -   **Toolbar Accessibility:** Unveil a comprehensive toolbar harboring essential Markdown writing tools by engaging the "Tools" button.
 -   **Keyboard Shortcuts:** Streamline your workflow with the following shortcuts:

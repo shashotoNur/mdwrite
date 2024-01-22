@@ -108,6 +108,22 @@ const Toolbar = ({
             </button>
             <button
                 className={`toolbar-button ${theme}`}
+                onClick={() => {
+                    if (
+                        confirm(
+                            "You are about erase to all your data in this app including your entries."
+                        )
+                    ) {
+                        localStorage.clear();
+                        location.reload();
+                    }
+                }}
+                title="Clear your data in this app"
+            >
+                <i>Clear</i>
+            </button>
+            <button
+                className={`toolbar-button ${theme}`}
                 onClick={() => setHideToolbar(!hideToolbar)}
                 title={hideToolbar ? "Open toolbar" : "Close toolbar"}
             >

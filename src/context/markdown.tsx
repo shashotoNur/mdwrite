@@ -54,7 +54,10 @@ const MarkdownProvider: React.FC<{ children: React.ReactNode }> = ({
         const dateNumberNow = Date.now();
         const lastSaved = dateNumberNow - lastSaveTime;
 
-        const latestTimestamp = newTimestamp ?? timestamp;
+        const latestTimestamp =
+            typeof newTimestamp === "object" && newTimestamp instanceof Date
+                ? newTimestamp
+                : timestamp;
         const latestFilename = newFilename ?? filename;
 
         const { timeZone } = Intl.DateTimeFormat().resolvedOptions();

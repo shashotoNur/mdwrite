@@ -10,28 +10,65 @@
     left: 67.5%;
     transform: translate(-120%, -50%);
     overflow-y: scroll;
-    max-height: 80vh;
+    height: 80vh;
     width: 40rem;
     z-index: 8;
 }
 
 .entry-list-heading {
-    font-size: 1.25rem;
+    font-size: 2rem;
     font-weight: 600;
     text-align: center;
     color: var(--text-color-light);
 }
 
-.entry-title {
-    width: 100%;
-    height: 50px;
+.entry-title,
+.rename-btn {
+    /* Ensure both elements have the same height */
+    height: 30px;
+    /* Adjust the height as needed */
+    display: inline-block;
+    /* Display them side by side */
+    vertical-align: top;
+    /* Align their tops */
     text-align: center;
-    padding-top: 30px;
+    padding-top: 20px;
+    padding-bottom: 10px;
     background-color: var(--white);
-    border-bottom: solid var(--entry-list-light-bg);
+}
+
+.entry-title {
+    width: 90%;
+    height: 30px;
+}
+
+.entry-title input,
+.entry-title label {
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+.rename-btn {
+    width: 9.5%;
+    font-size: large;
+    border-left: 2px solid #eee;
+    cursor: pointer;
+}
+
+.entry-search {
+    margin-left: 5px;
+    padding: 10px 10px;
+    border: 1px solid var(--error-bg);
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.search-heading {
+    text-align: center;
 }
 
 .entry {
+    margin-bottom: -5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -112,8 +149,10 @@
 .delete-button {
     padding: 0.5rem 1rem;
     text-align: left;
+    text-wrap: wrap;
     border: none;
     cursor: pointer;
+    overflow-y: scroll;
     height: 50px;
 }
 
@@ -139,8 +178,12 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 0px 2px;
     cursor: pointer;
+}
+
+.header-button-container input[type="file"] {
+    display: none;
 }
 
 .export-button {
@@ -170,9 +213,25 @@
     color: var(--text-color-dark);
 }
 
-.dark.entry-title {
+.dark.entry-search {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+    border: 1px solid var(--border-dark);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dark.search-heading {
+    color: var(--white);
+}
+
+.dark.entry-title,
+.dark.rename-btn {
     background-color: var(--button-background-dark);
     color: var(--white);
+}
+
+.dark.rename-btn {
+    border-left: 2px solid var(--background-dark);
 }
 
 .dark.entry-button {
@@ -208,6 +267,18 @@
     .entry-list {
         width: 80%;
         transform: translate(-70%, -50%);
+    }
+}
+
+@media (max-width: 500px) {
+    .rename-btn {
+        width: 10%;
+        border-left: none;
+    }
+
+    .dark.rename-btn {
+        width: 10%;
+        border-left: none;
     }
 }
 

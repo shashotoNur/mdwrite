@@ -89,14 +89,21 @@ const Home = ({ closeHome }: { closeHome: () => void }) => {
                                     &quot;Save&quot; button.
                                 </li>
                                 <li>
-                                    Markers &quot;✔&quot; and &quot;✘&quot; show whether
-                                    or not your work is saved.
+                                    Markers &quot;✔&quot; and &quot;✘&quot; show
+                                    whether or not your work is saved.
                                 </li>
                             </ul>
                         </li>
                         <li>
                             <h3>Unleashing Your Creativity</h3>
                             <ul>
+                                <li>
+                                    Quickly find your entry in the Entries list
+                                    via Search.
+                                </li>
+                                <li>
+                                    Rename your entries at ease by clicking on the &gt; beside the entry name.
+                                </li>
                                 <li>
                                     Access essential formatting tools with the
                                     &quot;Tools&quot; button.
@@ -122,6 +129,10 @@ const Home = ({ closeHome }: { closeHome: () => void }) => {
                                 <li>
                                     Import/export Markdown files from/to your
                                     filesystem.
+                                </li>
+                                <li>
+                                    Import/export multiple entries at once in a
+                                    json file from the Entries.
                                 </li>
                                 <li>
                                     Keep track of changes and revert to previous

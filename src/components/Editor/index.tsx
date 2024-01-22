@@ -13,8 +13,10 @@ import { handleKeyDown, exportMarkdown } from "utils";
 import "components/Editor/styles.css";
 
 const Editor = ({
+    isListVisible,
     toggleListVisibility,
 }: {
+    isListVisible: boolean;
     toggleListVisibility: () => void;
 }) => {
     const editorRef = React.createRef<AceEditor>();
@@ -56,11 +58,12 @@ const Editor = ({
         const keyDownListener = (e: KeyboardEvent) => {
             if (!editor) return;
             handleKeyDown({ event: e, editor, saveToStorage });
+            if (e.ctrlKey && e.key.toLowerCase() == "s" && isListVisible) toggleListVisibility();
         };
 
         document.addEventListener("keydown", keyDownListener);
         return () => document.removeEventListener("keydown", keyDownListener);
-    }, [editor, filename, markdown, saveToStorage, timestamp, toVersion]);
+    }, [editor, filename, isListVisible, markdown, saveToStorage, timestamp, toVersion, toggleListVisibility]);
 
     if (!themeContext) return <div>Error: Theme context is null</div>;
     const { theme } = themeContext;
@@ -111,7 +114,10 @@ const Editor = ({
                         title="Enter the name of your entry"
                     />
                 </label>
-                <h4 title={isSaved ? "Document is saved" : "Unsaved changes"} className="status">
+                <h4
+                    title={isSaved ? "Document is saved" : "Unsaved changes"}
+                    className="status"
+                >
                     {isSaved ? "✔" : "✘"}
                 </h4>
 

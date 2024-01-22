@@ -5,12 +5,15 @@
     "type": "module",
     "scripts": {
         "dev": "vite --host --port 3000",
-        "build": "tsc && vite build --outDir build",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+        "clean": "rm -rf ./node_modules && rm -rf ./build",
+        "reinstall": "npm run clean && npm ci",
+        "build": "tsc && vite build --outDir build",
+        "rebuild": "npm run reinstall && npm run build",
         "preview": "vite preview --host --port 6969",
-        "latest": "npm run build && npm run preview",
+        "latest": "npm run rebuild && npm run preview",
         "deploy": "gh-pages -d build",
-        "deploy-latest": "npm run build && npm run deploy"
+        "deploy-latest": "npm run rebuild && npm run deploy"
     },
     "dependencies": {
         "ace-builds": "^1.32.3",
