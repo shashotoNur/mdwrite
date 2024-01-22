@@ -1,0 +1,8 @@
+import{_ as l,T as p}from"./index-MhRWvM9V.js";import{j as t}from"./plugins-zOuqcpMR.js";import{r as e}from"./ace-ERQk7LBk.js";const x=e.lazy(()=>l(()=>import("./index-0_VoH3IF.js"),__vite__mapDeps([0,1,2,3,4,5]))),w=e.lazy(()=>l(()=>import("./index-4HtYeWPI.js"),__vite__mapDeps([6,1,2,3,4,5]))),b=e.lazy(()=>l(()=>import("./index-mIaWgJYe.js").then(i=>i.i),__vite__mapDeps([7,1,2,3,4]))),R=({toCloseList:i})=>{const[n,c]=e.useState(!0),[_,f]=e.useState(!1),[r,E]=e.useState(!0),a=e.useRef(null),d=e.useRef(null),{theme:o}=e.useContext(p);e.useEffect(()=>{i&&c(!1);const s=()=>{f(window.innerWidth<768)};return window.addEventListener("resize",s),s(),()=>window.removeEventListener("resize",s)},[i]);const u=()=>c(!n),v=()=>{const s=a.current,m=d.current;if(!s||!m)return;(r?m:s).scrollIntoView(!0),E(!r)};return t.jsxs("div",{className:"main",children:[_&&t.jsx("button",{title:"Click to scroll to "+r?"preview":"editor",className:`floating-button btn ${o}`,onClick:v,children:r?"↓":"↑"}),n&&t.jsx(w,{closeList:u}),t.jsx("div",{className:`editor-sidebar ${o}`,ref:a,children:t.jsx(x,{toggleListVisibility:u,isListVisible:n})}),t.jsx("div",{className:`preview-pane ${o}`,ref:d,children:t.jsx(b,{})})]})};export{R as default};
+function __vite__mapDeps(indexes) {
+  if (!__vite__mapDeps.viteFileDeps) {
+    __vite__mapDeps.viteFileDeps = ["assets/index-0_VoH3IF.js","assets/plugins-zOuqcpMR.js","assets/ace-ERQk7LBk.js","assets/index-MhRWvM9V.js","assets/index--nUypExm.css","assets/exportMarkdown-C0XcNpUB.js","assets/index-4HtYeWPI.js","assets/index-mIaWgJYe.js"]
+  }
+  return indexes.map((i) => __vite__mapDeps.viteFileDeps[i])
+}
+//# sourceMappingURL=index-dZsZLlwX.js.map

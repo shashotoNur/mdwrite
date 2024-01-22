@@ -1,0 +1,2 @@
+import{j as o}from"./plugins-zOuqcpMR.js";import{b as n}from"./index-MhRWvM9V.js";import"./ace-ERQk7LBk.js";const a=()=>{const e=n(),r=()=>{e("/mdwrite/")};return o.jsxs("div",{className:"error-boundary",children:[o.jsx("h2",{children:"Error 404: Not Found"}),o.jsx("p",{children:"Sorry for the inconvenience!"}),o.jsx("p",{children:"Looks like what you were looking for does not exist!"}),o.jsxs("p",{onClick:r,children:["Go back to the ",o.jsx("b",{children:"Home page"})]})]})};export{a as default};
+//# sourceMappingURL=index-FMuKtOry.js.map

@@ -1,0 +1,1 @@
+.previews{margin:0;padding:0;position:relative;display:flex;width:100vw;min-height:100vh;max-height:300vh}.previews>*{flex:1}@media (max-width: 768px){.previews{flex-direction:column}}
